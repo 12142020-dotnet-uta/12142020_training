@@ -4,7 +4,13 @@ namespace RpsGame_NoDb
 {
     class Player
     {
-        private Guid playerId = new Guid();
+        public Player(string fname = "null", string lname = "null")
+        {
+            this.Fname = fname;
+            this.Lname = lname;
+        }
+
+        private Guid playerId = Guid.NewGuid();
         public Guid PlayerId
         {
             get
@@ -27,7 +33,7 @@ namespace RpsGame_NoDb
                 }
                 else
                 {
-                    throw new Exception("The player name you sent is no valid");
+                    throw new Exception("The player name you sent is not valid");
                 }
             }
         }
@@ -49,14 +55,22 @@ namespace RpsGame_NoDb
             }
         }
 
-
-
-
-
-
+        //below is methods
+        /// <summary>
+        /// This method inrements the Wins or the player
+        /// </summary>
         public void AddWin()
         {
             numWins++;
+        }
+
+        /// <summary>
+        /// This methods increments the wins of the player by the passed integer amount.
+        /// </summary>
+        /// <param name="x"></param>
+        public void AddWin(int x)
+        {
+            numWins = +x;
         }
 
         public void AddLoss()

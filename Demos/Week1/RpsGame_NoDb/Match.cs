@@ -6,18 +6,25 @@ namespace RpsGame_NoDb
 {
     class Match
     {
-        private Guid matchId = new Guid();
+        private Guid matchId = Guid.NewGuid();
         public Guid MatchId { get { return matchId; } }
 
         public Player Player1 { get; set; } // always the computer
         public Player Player2 { get; set; } // always the user.
 
-        List<Round> Rounds = new List<Round>();
+        public List<Round> Rounds = new List<Round>();
 
         private int p1RoundWins { get; set; } // ho many rounds has the player won?
         private int p2RoundWins { get; set; }
         private int ties { get; set; }
 
+        //below are methods
+        /// <summary>
+        /// This is the description of the method called RoundWinner
+        /// This methodtakes an optional Player object and increments the numnber of round wins for that player.
+        /// no arguments means a tie.
+        /// </summary>
+        /// <param name="p"></param>
         public void RoundWinner(Player p = null)
         {
             if (p.PlayerId == Player1.PlayerId)
@@ -58,5 +65,4 @@ namespace RpsGame_NoDb
     }
 
 
-}
 }

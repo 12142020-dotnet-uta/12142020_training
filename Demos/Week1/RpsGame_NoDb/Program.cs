@@ -4,6 +4,13 @@ namespace RpsGame_NoDb
 {
     class Program
     {
+        // public enum Choice
+        // {
+        //     Rock,
+        //     Paper,
+        //     Scissors
+        // }
+
         static void Main(string[] args)
         {
             Console.WriteLine("This is The Official Batch Rock-Paper-Scissors Game");
@@ -61,7 +68,8 @@ namespace RpsGame_NoDb
             }
 
 
-
         }
     }
+
+
 }

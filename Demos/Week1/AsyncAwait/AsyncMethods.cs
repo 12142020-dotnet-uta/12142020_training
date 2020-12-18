@@ -8,18 +8,21 @@ namespace AsyncAwait
     {
         public async Task Method1Async()//convention says to add Async in the name of the method
         {
-            Task task = Task.Delay(5000);
+            Task task = Task.Delay(1000);
             // await Task.Delay(5000);
             System.Console.WriteLine("Method1Async - Just after await 5 secs");
             await task;
+            System.Console.WriteLine("this is after the await in M1");
         }
 
         public async Task Method2Async()//convention says to add Async in the name of the method
         {
-            Task task = Task.Delay(3000);
+            Task task = Task.Delay(2000);
             // await Task.Delay(5000);
             System.Console.WriteLine("Method2Async - Just after await 3 secs");
             await task;
+            System.Console.WriteLine("this is after the await in M2");
+
         }
 
         public async Task Method3Async()//convention says to add Async in the name of the method
@@ -28,22 +31,28 @@ namespace AsyncAwait
             // await Task.Delay(5000);
             System.Console.WriteLine("Method3Async - Just after await 3 secs");
             await task;
+            System.Console.WriteLine("this is after the await in M3");
+
         }
 
         public async Task Method4Async()//convention says to add Async in the name of the method
         {
-            Task task = Task.Delay(3000);
+            Task task = Task.Delay(4000);
             // await Task.Delay(5000);
             System.Console.WriteLine("Method4Async - Just after await 3 secs");
             await task;
+            System.Console.WriteLine("this is after the await in M4");
+
         }
 
         public async Task Method5Async()//convention says to add Async in the name of the method
         {
-            Task task = Task.Delay(3000);
+            Task task = Task.Delay(5000);
             // await Task.Delay(5000);
             System.Console.WriteLine("Method5Async - Just after await 3 secs");
             await task;
+            System.Console.WriteLine("this is after the await in M5");
+
         }
 
 

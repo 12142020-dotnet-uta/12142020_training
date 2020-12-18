@@ -16,8 +16,6 @@ namespace EventHandlingClassDemo
 
             // UiEvent.UIEvent -= uiw2.OnUserInput;
 
-
-
             //do things....
 
             UiEvent.UserInputReceived();//fire the event

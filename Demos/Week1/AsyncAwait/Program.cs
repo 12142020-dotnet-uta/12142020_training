@@ -67,21 +67,32 @@ namespace AsyncAwait
             var m4Task = am.Method4Async();
             var m5Task = am.Method5Async();
 
+            // await am.Method5Async();
+            // System.Console.WriteLine("M5 returned");
+            // await am.Method4Async();
+            // System.Console.WriteLine("M4 returned");
+            // await am.Method3Async();
+            // System.Console.WriteLine("M3 returned");
+            // await am.Method2Async();
+            // System.Console.WriteLine("M2 returned");
+            // await am.Method1Async();
+            // System.Console.WriteLine("M1 returned");
             //print the current time
+
             time2 = DateTime.Now;
             System.Console.WriteLine($"The second time is {time2}");
 
             // now await the tasks.
             await m5Task;
-            System.Console.WriteLine("M1 returned");
-            await m2Task;
-            System.Console.WriteLine("M2 returned");
-            await m3Task;
-            System.Console.WriteLine("M3 returned");
+            System.Console.WriteLine("M5 returned");
             await m4Task;
             System.Console.WriteLine("M4 returned");
+            await m3Task;
+            System.Console.WriteLine("M3 returned");
+            await m2Task;
+            System.Console.WriteLine("M2 returned");
             await m1Task;
-            System.Console.WriteLine("M5 returned");
+            System.Console.WriteLine("M1 returned");
 
             //wait 4 seconds to allow enough time for the methods to return
             Task.Delay(4000).Wait();

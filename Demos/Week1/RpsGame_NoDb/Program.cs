@@ -11,14 +11,20 @@ namespace RpsGame_NoDb
             List<Player> players = new List<Player>();
             List<Match> matches = new List<Match>();
             List<Round> rounds = new List<Round>();
-            Random randomNumber = new Random(53); // create a random number object
+            Random rand = new Random();
+            Random randomNumber = new Random(rand.Next()); // create a random number object
+
             // create the Computer that everyone plays against.
-            Player p1 = new Player()
-            {
-                Fname = "Max",
-                Lname = "Headroom"
-            };
-            players.Add(p1);
+            //call methos CreatePlayer() with player name.
+            // Player p1 = new Player()
+            // {
+            //     Fname = "Max",
+            //     Lname = "Headroom"
+            // };
+            // players.Add(p1);
+            RpsGameRepositoryLayer gameContext = new RpsGameRepositoryLayer();
+
+            Player p1 = gameContext.CreatePlayer("Max", "HeadRoom"); // create the
 
             Console.WriteLine("This is The Official Batch Rock-Paper-Scissors Game");
             // program loop starts here.

@@ -2,7 +2,7 @@ using System;
 
 namespace RpsGame_NoDb
 {
-    class Round
+    public class Round
     {
         private Guid roundId = Guid.NewGuid();
         public Guid RoundId { get { return roundId; } }

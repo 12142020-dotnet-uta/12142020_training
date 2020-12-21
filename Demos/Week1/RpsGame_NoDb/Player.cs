@@ -2,7 +2,7 @@ using System;
 
 namespace RpsGame_NoDb
 {
-    class Player
+    public class Player
     {
         public Player(string fname = "null", string lname = "null")
         {

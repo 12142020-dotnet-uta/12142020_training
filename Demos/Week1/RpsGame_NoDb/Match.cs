@@ -27,18 +27,17 @@ namespace RpsGame_NoDb
         /// <param name="p"></param>
         public void RoundWinner(Player p = null)
         {
-            if (p.PlayerId == Player1.PlayerId)
+            if (p == null)
+            {
+                ties++;
+            }
+            else if (p.PlayerId == Player1.PlayerId)
             {
                 p1RoundWins++;
             }
             else if (p.PlayerId == Player2.PlayerId)
             {
                 p2RoundWins++;
-
-            }
-            else
-            {
-                ties++;
             }
         }
 

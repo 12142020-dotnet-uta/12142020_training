@@ -32,11 +32,11 @@ namespace RpsGame_NoDb
             {
                 ties++;
             }
-            else if (p.PlayerId == Player1.PlayerId)
+            else if (p.playerId == Player1.playerId)
             {
                 p1RoundWins++;
             }
-            else if (p.PlayerId == Player2.PlayerId)
+            else if (p.playerId == Player2.playerId)
             {
                 p2RoundWins++;
             }

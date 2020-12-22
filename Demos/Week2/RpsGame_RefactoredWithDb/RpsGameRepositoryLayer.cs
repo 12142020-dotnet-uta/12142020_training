@@ -74,7 +74,7 @@ namespace RpsGame_NoDb
         public bool SaveMatch(Match match)
         {
             //check if the match is already there
-            if (!matches.Exists(x => x.MatchId == match.MatchId))
+            if (!matches.Exists(x => x.matchId == match.matchId))
             {
                 matches.Add(match);
                 return true;
@@ -135,7 +135,7 @@ namespace RpsGame_NoDb
         /// <param name="match"></param>
         public bool AddCompletedMatch(Match match)
         {
-            if (!matches.Exists(x => x.MatchId == match.MatchId))
+            if (!matches.Exists(x => x.matchId == match.matchId))
             {
                 matches.Add(match);
                 return true;
@@ -149,12 +149,12 @@ namespace RpsGame_NoDb
         /// <param name="match"></param>
         public void UpdateWinLossRecords(Match match)
         {
-            if (match.MatchWinner().PlayerId == match.Player1.PlayerId)
+            if (match.MatchWinner().playerId == match.Player1.playerId)
             {
                 match.Player1.AddWin();
                 match.Player2.AddLoss();
             }
-            else if (match.MatchWinner().PlayerId == match.Player2.PlayerId)
+            else if (match.MatchWinner().playerId == match.Player2.playerId)
             {
                 match.Player2.AddWin();
                 match.Player1.AddLoss();

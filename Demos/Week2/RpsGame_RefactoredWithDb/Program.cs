@@ -159,7 +159,7 @@ namespace RpsGame_NoDb
             int i = 1;
             foreach (Player player in p)
             {
-                Console.WriteLine($"\n\t\tPlayer {i++} - \nThe GUID is {player.PlayerId}.");
+                Console.WriteLine($"\n\t\tPlayer {i++} - \nThe GUID is {player.playerId}.");
                 Console.WriteLine($"\t First name is {player.Fname}.");
                 Console.WriteLine($"\tLast Name is {player.Lname}.");
                 int[] winsAndLosses = player.GetWinLossRecord();
@@ -173,7 +173,7 @@ namespace RpsGame_NoDb
             int i = 1;
             foreach (Round round1 in rounds)
             {
-                Console.WriteLine($"\n\t\tROUND {i++}- \nThe GUID is {round1.RoundId}.");
+                Console.WriteLine($"\n\t\tROUND {i++}- \nThe GUID is {round1.roundId}.");
                 Console.WriteLine($"\tP1 Choice is {round1.Player1Choice}.");
                 Console.WriteLine($"\tP2 Choice is {round1.Player2Choice}.");
                 Console.WriteLine($"\tThe winning player is {round1.WinningPlayer.Fname}");
@@ -185,7 +185,7 @@ namespace RpsGame_NoDb
             int i = 1;
             foreach (Match m in matches)
             {
-                Console.WriteLine($"\n\t\tMatch {i++}- \nThe GUID is {m.MatchId}.");
+                Console.WriteLine($"\n\t\tMatch {i++}- \nThe GUID is {m.matchId}.");
                 Console.WriteLine($"\tP1s name is {m.Player1.Fname}.");
                 Console.WriteLine($"\tP2s name is {m.Player2.Fname}.");
                 Console.WriteLine($"\tThe winning player is {m.MatchWinner().Fname}");

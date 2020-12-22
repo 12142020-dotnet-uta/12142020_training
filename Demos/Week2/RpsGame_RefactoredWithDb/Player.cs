@@ -13,17 +13,9 @@ namespace RpsGame_NoDb
         }
 
         [Key]
-        public Guid playerId = Guid.NewGuid();
-        // public Guid PlayerId
-        // {
-        //     get
-        //     {
-        //         return playerId;
-        //     }
-        // }
-
-        private int numWins;
-        private int numLosses;
+        public Guid playerId { get; set; } = Guid.NewGuid();
+        public int numWins { get; set; }
+        public int numLosses { get; set; }
         private string fName;
         public string Fname
         {

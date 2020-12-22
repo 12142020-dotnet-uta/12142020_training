@@ -8,7 +8,7 @@ namespace RpsGame_NoDb
     public class Match
     {
         [Key]
-        public Guid matchId = Guid.NewGuid();
+        public Guid matchId { get; set; } = Guid.NewGuid();
         //public Guid MatchId { get { return matchId; } }
 
         public Player Player1 { get; set; } // always the computer
@@ -16,9 +16,9 @@ namespace RpsGame_NoDb
 
         public List<Round> Rounds = new List<Round>();
 
-        private int p1RoundWins { get; set; } // ho many rounds has the player won?
-        private int p2RoundWins { get; set; }
-        private int ties { get; set; }
+        public int p1RoundWins { get; set; } // Who many rounds has the player won?
+        public int p2RoundWins { get; set; }
+        public int ties { get; set; }
 
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace RpsGame_NoDb
             }
             else
             {
-                return null;
+                return new Player();
             }
         }
 

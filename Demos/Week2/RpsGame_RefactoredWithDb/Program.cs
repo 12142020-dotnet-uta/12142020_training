@@ -45,7 +45,7 @@ namespace RpsGame_NoDb
                         Round round = gameContext.PlayRound(match, computerChoice, userChoice);
                         Console.WriteLine($"The computer choice is => {round.Player1Choice}.");
                         TellUserWhoWonTheRound(round);
-                    } while (match.MatchWinner() == null);// end the game when once a player wins 2 rounds
+                    } while (match.MatchWinner().Fname == "null");// end the game when once a player wins 2 rounds
 
                     gameContext.UpdateWinLossRecords(match);
                     gameContext.AddCompletedMatch(match);

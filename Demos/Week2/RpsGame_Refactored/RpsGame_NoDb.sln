@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RpsGame_NoDb", "RpsGame_NoDb.csproj", "{2370AA79-6AB7-4327-8466-BEEFA7CFC8FD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2370AA79-6AB7-4327-8466-BEEFA7CFC8FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2370AA79-6AB7-4327-8466-BEEFA7CFC8FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2370AA79-6AB7-4327-8466-BEEFA7CFC8FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2370AA79-6AB7-4327-8466-BEEFA7CFC8FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A430BD92-E6AF-4CA6-B77B-A7AE7B8F892E}
+	EndGlobalSection
+EndGlobal

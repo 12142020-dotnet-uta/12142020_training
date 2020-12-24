@@ -1,26 +1,21 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RpsGame_NoDb
 {
     public class Player
     {
+        //constructor
         public Player(string fname = "null", string lname = "null")
         {
             this.Fname = fname;
             this.Lname = lname;
         }
 
-        private Guid playerId = Guid.NewGuid();
-        public Guid PlayerId
-        {
-            get
-            {
-                return playerId;
-            }
-        }
-
-        private int numWins;
-        private int numLosses;
+        [Key]
+        public Guid playerId { get; set; } = Guid.NewGuid();
+        public int numWins { get; set; }
+        public int numLosses { get; set; }
         private string fName;
         public string Fname
         {
@@ -70,7 +65,7 @@ namespace RpsGame_NoDb
         /// <param name="x"></param>
         public void AddWin(int x)
         {
-            numWins = +x;
+            numWins += x;
         }
 
         public void AddLoss()

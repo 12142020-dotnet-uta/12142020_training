@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RpsGame_NoDb
 {
@@ -10,14 +11,9 @@ namespace RpsGame_NoDb
             this.Lname = lname;
         }
 
-        private Guid playerId = Guid.NewGuid();
-        public Guid PlayerId
-        {
-            get
-            {
-                return playerId;
-            }
-        }
+        //private Guid playerId = Guid.NewGuid();
+        [Key]
+        public Guid PlayerId { get; set; }
 
         private int numWins;
         private int numLosses;
@@ -70,7 +66,7 @@ namespace RpsGame_NoDb
         /// <param name="x"></param>
         public void AddWin(int x)
         {
-            numWins = +x;
+            numWins += x;
         }
 
         public void AddLoss()

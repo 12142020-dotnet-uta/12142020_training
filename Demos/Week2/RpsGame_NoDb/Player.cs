@@ -70,7 +70,7 @@ namespace RpsGame_NoDb
         /// <param name="x"></param>
         public void AddWin(int x)
         {
-            numWins = +x;
+            numWins += x;
         }
 
         public void AddLoss()

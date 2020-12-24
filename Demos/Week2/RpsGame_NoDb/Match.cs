@@ -18,7 +18,7 @@ namespace RpsGame_NoDb
         private int p2RoundWins { get; set; }
         private int ties { get; set; }
 
-        //below are methods
+
         /// <summary>
         /// This is the description of the method called RoundWinner
         /// This methodtakes an optional Player object and increments the numnber of round wins for that player.

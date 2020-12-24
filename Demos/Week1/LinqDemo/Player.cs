@@ -1,8 +1,8 @@
 using System;
 
-namespace RpsGame_NoDb
+namespace LinqDemo
 {
-    public class Player
+    class Player
     {
         public Player(string fname = "null", string lname = "null")
         {
@@ -70,7 +70,7 @@ namespace RpsGame_NoDb
         /// <param name="x"></param>
         public void AddWin(int x)
         {
-            numWins = +x;
+            numWins += x;
         }
 
         public void AddLoss()
@@ -87,10 +87,5 @@ namespace RpsGame_NoDb
 
             return winsAndLosses; // return the array.
         }
-
-
-
-
-
     }
 }

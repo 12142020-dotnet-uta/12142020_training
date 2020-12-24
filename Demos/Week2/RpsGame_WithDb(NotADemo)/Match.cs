@@ -1,13 +1,15 @@
 
 using System.Collections.Generic;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace RpsGame_NoDb
 {
     public class Match
     {
-        private Guid matchId = Guid.NewGuid();
-        public Guid MatchId { get { return matchId; } }
+        // private Guid matchId = Guid.NewGuid();
+        [Key]
+        public Guid MatchId { get; set; }
 
         public Player Player1 { get; set; } // always the computer
         public Player Player2 { get; set; } // always the user.
@@ -18,7 +20,7 @@ namespace RpsGame_NoDb
         private int p2RoundWins { get; set; }
         private int ties { get; set; }
 
-        //below are methods
+
         /// <summary>
         /// This is the description of the method called RoundWinner
         /// This methodtakes an optional Player object and increments the numnber of round wins for that player.

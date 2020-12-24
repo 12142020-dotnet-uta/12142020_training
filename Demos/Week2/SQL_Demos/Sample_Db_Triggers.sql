@@ -35,13 +35,13 @@ BEGIN
 		CustomerId,FirstName,LastName,AddressID,
 		LastOrderDate,Remarks,GETDATE(),'INS'
 	FROM
-		inserted
+		inserted --the internal table
 	UNION ALL
 	SELECT
 		CustomerId,FirstName,LastName,AddressID,
 		LastOrderDate,Remarks,GETDATE(),'DEL'
 	FROM
-		deleted
+		deleted --the internal table
 END
 
 --test the trigger to verify that it works.
@@ -94,7 +94,7 @@ VALUES
 INSERT INTO Customers 
 (FirstName, LastName, AddressID, LastOrderDate, Remarks) 
 VALUES 
-('Jerky', 'McJerkyson', 6, '1950-10-01', 'Testing the Test of a test');
+('Jerky', 'McJerkyson', 6, '1950-10-01', 'ReTesting the Test of a tested test');
 
 --Look at the Customers_pending table
 SELECT * FROM Customers_pending;

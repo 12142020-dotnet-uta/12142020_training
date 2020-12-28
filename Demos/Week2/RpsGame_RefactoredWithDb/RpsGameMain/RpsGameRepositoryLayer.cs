@@ -11,10 +11,19 @@ namespace RpsGame_NoDb
         // List<Round> rounds = new List<Round>();
         int numberOfChoices = Enum.GetNames(typeof(Choice)).Length; // get a always-current number of options of Enum Choice
         Random randomNumber = new Random((int)DateTime.Now.Millisecond); // create a random number object
-        static RpsDbContext DbContext = new RpsDbContext();
-        DbSet<Player> players = DbContext.players;
-        DbSet<Match> matches = DbContext.matches;
-        DbSet<Round> rounds = DbContext.rounds;
+        RpsDbContext DbContext = new RpsDbContext();
+        DbSet<Player> players;
+        DbSet<Match> matches;
+        DbSet<Round> rounds;
+
+        public RpsGameRepositoryLayer() { }
+        public RpsGameRepositoryLayer(RpsDbContext context)
+        {
+            this.DbContext = context;
+            players = DbContext.players;
+            matches = DbContext.matches;
+            rounds = DbContext.rounds;
+        }
 
 
         /// <summary>

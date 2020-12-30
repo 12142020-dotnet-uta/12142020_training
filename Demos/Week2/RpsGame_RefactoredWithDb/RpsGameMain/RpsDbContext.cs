@@ -19,7 +19,5 @@ namespace RpsGame_NoDb
                 options.UseSqlServer("Server=localhost\\SQLEXPRESS02;Database=RpsGame12142020;Trusted_Connection=True;");
             }
         }
-
-
     }
 }

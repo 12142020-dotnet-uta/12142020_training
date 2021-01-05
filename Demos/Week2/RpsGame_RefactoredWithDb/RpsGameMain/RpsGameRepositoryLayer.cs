@@ -7,8 +7,6 @@ namespace RpsGame_NoDb
 {
     public class RpsGameRepositoryLayer
     {
-        // List<Match> matches = new List<Match>();
-        // List<Round> rounds = new List<Round>();
         int numberOfChoices = Enum.GetNames(typeof(Choice)).Length; // get a always-current number of options of Enum Choice
         Random randomNumber = new Random((int)DateTime.Now.Millisecond); // create a random number object
         RpsDbContext DbContext;
@@ -212,7 +210,5 @@ namespace RpsGame_NoDb
         {
             return rounds.ToList();
         }
-
-
     }
 }

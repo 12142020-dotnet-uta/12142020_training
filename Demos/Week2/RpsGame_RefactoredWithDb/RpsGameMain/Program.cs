@@ -10,48 +10,6 @@ namespace RpsGame_NoDb
         static int numberOfChoices = Enum.GetNames(typeof(Choice)).Length;
         static void Main(string[] args)
         {
-
-            // string[] trees = { "cedar", "pine", "", "fur", "spruce", "oak" };
-            // string[] vehicles = { "car", "truck", "moto", "boat", "plain" };
-            // var allThings = trees.Union(vehicles);
-            // foreach(var a in allThings){
-            //     Console.Write($"{a }, ");
-            // }
-            // Console.WriteLine();
-
-            // var a1 = allThings.Where(x => x.Length < 5);
-            // foreach (var a in a1)
-            // {
-            //     Console.Write($"{a }, ");
-            // }
-            // Console.WriteLine();
-
-            // var a2 = a1.OrderBy(x => x.Length);
-            // foreach (var a in a2)
-            // {
-            //     Console.Write($"{a }, ");
-            // }
-            // Console.WriteLine();
-
-            // var a3 = a2.Union(trees);
-            // foreach (var a in a3)
-            // {
-            //     Console.Write($"{a }, ");
-            // }
-            // Console.WriteLine();
-
-            // var a4 = a3.Reverse();
-
-            // foreach (var a in a4)
-            // {
-            //     Console.Write($"{a }, ");
-            // }
-            // Console.WriteLine();
-
-            // int numberOfItems = allThings.Count();
-            // Console.WriteLine($"\nThe number of items in the final array is {numberOfItems}");
-
-//////////////////////////////////////////////////////////////////
             // program loop starts here.
             Player p1 = gameContext.CreatePlayer("Max", "HeadRoom"); // create the computer
 

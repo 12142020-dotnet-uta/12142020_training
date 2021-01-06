@@ -1,0 +1,54 @@
+﻿@model ModelLayer.Player
+
+@{
+	ViewData["Title"] = "DisplayPlayerDetails";
+}
+
+<h1>DisplayPlayerDetails</h1>
+
+<div>
+	<h4>Player</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.playerId)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.playerId)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Fname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Fname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Lname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Lname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.numWins)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.numWins)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.numLosses)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.numLosses)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.ByteArrayImage)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.ByteArrayImage)
+		</dd>
+	</dl>
+</div>
+<div>
+	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+	<a asp-action="Index">Back to List</a>
+</div>

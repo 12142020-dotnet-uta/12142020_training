@@ -84,5 +84,41 @@ namespace RepositoryLayer
 			return player2;
 		}
 
+
+		/// <summary>
+		/// returns all match objects in List<Player>
+		/// </summary>
+		/// <returns></returns>
+		public List<Player> PlayerList()
+		{
+			return players.ToList();
+		}
+
+		public bool CheckPlayerExists(Guid playerGuid)
+		{
+			bool exists = players.Any(x => x.playerId == playerGuid);
+			return exists;
+		}
+
+		/// <summary>
+		/// Takes a PlayerGuid and deletes teh player matching that Guid. Returns TRUE on success, otherwise FALSE
+		/// </summary>
+		/// <param name="playerGuid"></param>
+		/// <returns></returns>
+		public bool DeletePlayerById(Guid playerGuid)
+		{
+			Player player = players.FirstOrDefault(x => x.playerId == playerGuid);
+			var success = players.Remove(player);
+			_dbContext.SaveChanges();
+			if (success != null)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
 	}// end of class
 }// end of namespace

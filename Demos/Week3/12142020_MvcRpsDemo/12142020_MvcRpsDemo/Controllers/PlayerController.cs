@@ -20,41 +20,10 @@ namespace _12142020_MvcRpsDemo.Controllers
 			_businessLogicClass = businessLogicClass;
 			_logger = logger;
 		}
-		// GET: PlayerController
-		public ActionResult Index()
-		{
-			return View();
-		}
 
-		// GET: PlayerController/Details/5
-		public ActionResult Details(int id)
-		{
-			return View();
-		}
-
-		// GET: PlayerController/Create
-		public ActionResult Create()
-		{
-			return View();
-		}
-
-		// POST: PlayerController/Create
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection)
-		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
-		}
-
-		// GET: PlayerController/Edit/5
-		[Route("{playerGuid}")]
+		[HttpGet]
+		[ActionName("EditPlayer")]
+		//[Route("{playerGuid}")]
 		public ActionResult EditPlayer(Guid playerGuid)
 		{
 			// call a method on BusinessLogic Layer that will take a playerId and return a PlayerView Model
@@ -73,40 +42,51 @@ namespace _12142020_MvcRpsDemo.Controllers
 			return View("DisplayPlayerDetails", playerViewModel1);
 		}
 
-		// POST: PlayerController/Edit/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection)
+		public IActionResult PlayersList()
 		{
-			try
-			{
-				return RedirectToAction(nameof(Index));
-			}
-			catch
-			{
-				return View();
-			}
+			//call BusinessLayer method that returns a List<PLayerViewModel>
+			List<PlayerViewModel> playerViewModelList = _businessLogicClass.PlayersList();
+			//render the List View
+			return View(playerViewModelList);
 		}
 
-		// GET: PlayerController/Delete/5
-		public ActionResult Delete(int id)
+		[HttpGet]
+		[ActionName("PlayerDetails")]
+		//[Route("{playerGuid}")]
+		public IActionResult PlayerDetails(Guid playerGuid)
 		{
-			return View();
+			PlayerViewModel playerViewModel = _businessLogicClass.EditPlayer(playerGuid);
+			return View("DisplayPlayerDetails", playerViewModel);
 		}
 
-		// POST: PlayerController/Delete/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection)
+		[HttpGet]
+		[ActionName("DeletePlayer")]
+		public IActionResult DeletePlayer(Guid playerGuid)
 		{
-			try
+			// verify that the player exists
+			bool exists = _businessLogicClass.CheckPlayerExists(playerGuid);
+
+			if (!exists)
 			{
-				return RedirectToAction(nameof(Index));
+				//ModelState. ("Failure", "This player doesnt exist.");
+				//TempData["PlayerError"] = "This Player does not exist";
+				ModelState.AddModelError("Failure", "Wrong Username and password combination!");
+				return RedirectToAction("PlayersList");
 			}
-			catch
+			// send the player to be deleted
+			else
 			{
-				return View();
+				bool success = _businessLogicClass.DeletePlayerById(playerGuid);
+				if (success)
+				{
+					return RedirectToAction("PlayersList");
+				}
+				else
+				{
+					ModelState.AddModelError("Failure", "Unable to delete that player");
+					return View("Error");
+				}
 			}
 		}
-	}
-}
+	}// end of class
+}// end of namespace

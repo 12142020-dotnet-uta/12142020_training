@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ModelLayer;
 using ModelLayer.ViewModels;
 using RepositoryLayer;
@@ -61,6 +62,41 @@ namespace BusinessLogicLayer
 			Player player1 = _repository.EditPlayer(player);
 			PlayerViewModel playerViewModel1 = _mapperClass.ConvertPlayerToPlayerViewModel(player1);
 			return playerViewModel1;
+		}
+
+		public List<PlayerViewModel> PlayersList()
+		{
+			//call Repo method to get a List<Player>
+			List<Player> playerList = _repository.PlayerList();
+
+
+			//convert that List<Player> to List<PlayerViewModel>
+			List<PlayerViewModel> playerViewModelList = new List<PlayerViewModel>();
+			foreach (Player p in playerList)
+			{
+				playerViewModelList.Add(_mapperClass.ConvertPlayerToPlayerViewModel(p));
+			}
+
+			return playerViewModelList;
+		}
+
+		public bool CheckPlayerExists(Guid playerGuid)
+		{
+			bool exists = _repository.CheckPlayerExists(playerGuid);
+			return exists;
+		}
+
+		public bool DeletePlayerById(Guid playerGuid)
+		{
+			bool success = _repository.DeletePlayerById(playerGuid);
+			if (success != null)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 
 	}// end of class

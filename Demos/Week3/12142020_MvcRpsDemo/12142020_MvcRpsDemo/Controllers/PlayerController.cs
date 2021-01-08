@@ -103,22 +103,7 @@ namespace _12142020_MvcRpsDemo.Controllers
 		public IActionResult PlayGame(Guid playerGuid)
 		{
 			MatchViewModel matchViewModel = _businessLogicClass.PlayGame(playerGuid);
-
-			// if there is a winner, render the winner View
-			if (matchViewModel.p1RoundWins == 2)
-			{
-				ViewBag["winner"] = $"The winner is {matchViewModel.Player1.Fname} {matchViewModel.Player1.Lname}!";
-				return View("GameOver", matchViewModel);
-			}
-			else if (matchViewModel.p2RoundWins == 2)
-			{
-				ViewBag["winner"] = $"The winner is {matchViewModel.Player2.Fname} {matchViewModel.Player2.Lname}!";
-				return View("GameOver", matchViewModel);
-			}
-			else
-			{
-				return View(matchViewModel);
-			}
+			return View(matchViewModel);
 		}
 
 		[ActionName("playnextround")]
@@ -134,12 +119,12 @@ namespace _12142020_MvcRpsDemo.Controllers
 			// if there is a winner, render the winner View
 			if (matchViewModel.p1RoundWins == 2)
 			{
-				ViewBag["winner"] = $"The winner is {matchViewModel.Player1.Fname} {matchViewModel.Player1.Lname}!";
+				ViewBag["winner"] = $"The winner is {matchViewModel.Player1Fname} {matchViewModel.Player1Lname}!";
 				return View("GameOver", matchViewModel);
 			}
 			else if (matchViewModel.p2RoundWins == 2)
 			{
-				ViewBag["winner"] = $"The winner is {matchViewModel.Player2.Fname} {matchViewModel.Player2.Lname}!";
+				ViewBag["winner"] = $"The winner is {matchViewModel.Player2Fname} {matchViewModel.Player2Lname}!";
 				return View("GameOver", matchViewModel);
 			}
 			else

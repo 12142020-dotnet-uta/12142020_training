@@ -2,10 +2,15 @@
 
 @{
 	ViewData["Title"] = "PlayGame";
+	var dict = new Dictionary<Choice, string>
+	{
+		[Choice.Rock] = "~/RpsImages/Rock.jpg",
+		[Choice.Paper] = "~/RpsImages/Paper.jpg",
+		[Choice.Scissors] = "~/RpsImages/Scissors.jpeg"
+	};
 }
 
 <h1>PlayGame</h1>
-
 <h4>MatchViewModel</h4>
 <hr />
 <div class="row">
@@ -13,26 +18,34 @@
 		<form asp-action="playnextround">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<div class="form-group">
-				<label asp-for="matchId" class="control-label"></label>
-				<input asp-for="matchId" class="form-control" />
-				<span asp-validation-for="matchId" class="text-danger"></span>
+				@*<label asp-for="matchId" class="control-label"></label>*@
+				<input asp-for="matchId" class="form-control" type="hidden" />
+				@*<span asp-validation-for="matchId" class="text-danger"></span>*@
 			</div>
+			<div class="form-group">
+				@*<label asp-for="Player1" class="control-label"></label>*@
+				<input asp-for="Player1" class="form-control" type="hidden" />
+				@*<span asp-validation-for="Player1" class="text-danger"></span>*@
+			</div>
+			<div class="form-group">
+				@*<label asp-for="Player2" class="control-label"></label>*@
+				<input asp-for="Player2" class="form-control" type="hidden" />
+				@*<span asp-validation-for="Player2" class="text-danger"></span>*@
+			</div>
+			@*Here, use a foreach to assign the values to the 3 different choices.*@
 			<div class="form-group row">
-				<div class="col-md-4">
-					<input asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice" type="radio" name="Player2Choice" id="Player2Choice" value="@Choice.Rock" />
-					<label asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice"><img class="img-responsive" src="~/RpsImages/Rock.jpg" alt="Rock" style="height:200px; width:100%" /></label>
-				</div>
-				<div class="col-md-4">
-					<input asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice" type="radio" name="Player2Choice" id="Player2Choice" value="@Choice.Paper" />
-					<label asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice"><img class="img-responsive" src="~/RpsImages/Paper.jpg" alt="Paper" style="height: 200px; width: 100%" /></label>
-				</div>
-				<div class="col-md-4">
-					<input asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice" type="radio" name="Player2Choice" id="Player2Choice" value="@Choice.Scissors" />
-					<label asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice"><img class="img-responsive" src="~/RpsImages/Scissors.jpeg" alt="Scissors" style="height: 200px; width: 100%" /></label>
-				</div>
-				<div class="form-group">
-					<input type="submit" value="Submit Round" class="btn btn-primary" />
-				</div>
+				@foreach (var item in dict)
+				{
+					<div class="col-md-4">
+						<label asp-for="Player2Choice">
+							<input asp-for="Player2Choice" type="radio" value="@item.Key" />
+							<img class="img-responsive" src="@Url.Content(item.Value)" alt="Rock/Paper/Scissors" style="height:200px; width:100%" />
+						</label>
+					</div>
+				}
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
 			</div>
 		</form>
 	</div>

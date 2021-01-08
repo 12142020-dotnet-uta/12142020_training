@@ -108,12 +108,12 @@ namespace BusinessLogicLayer
 			//get the player and computer to assign to the Match
 			Player player2 = _repository.GetPlayerById(playerId);
 			PlayerViewModel Player2ViewModel = _mapperClass.ConvertPlayerToPlayerViewModel(player2);
-			matchViewModel.Player2 = Player2ViewModel;
+			matchViewModel.Player2 = Player2ViewModel.playerId;
 
 			// get the player1(computer) and player1ViewModel (computer)
 			Player player1 = _repository.GetPlayer1_TheComputer();
 			PlayerViewModel Player1ViewModel = _mapperClass.ConvertPlayerToPlayerViewModel(player1);
-			matchViewModel.Player1 = Player1ViewModel;
+			matchViewModel.Player1 = Player1ViewModel.playerId;
 
 			// get the first round to allow the player to choose a choice to be put in to their slot.
 			matchViewModel.Rounds.Add(GetNextRound());
@@ -190,17 +190,17 @@ namespace BusinessLogicLayer
 				((int)player2Choice == 2 && (int)player1Choice == 1) ||
 				((int)player2Choice == 0 && (int)player1Choice == 2))
 			{
-				match.Rounds[match.Rounds.Count - 1].WinningPlayer = _mapperClass.ConvertPlayerViewModelToPlayer(match.Player2);
+				match.Rounds[match.Rounds.Count - 1].WinningPlayer = _repository.GetPlayerById(match.Player2);
 				//rounds.Add(round);
 				//match.Rounds.Add(round);
-				match.RoundWinner(match.Player2.playerId);
+				match.RoundWinner(match.Player2);
 			}
 			else
 			{
-				match.Rounds[match.Rounds.Count - 1].WinningPlayer = _mapperClass.ConvertPlayerViewModelToPlayer(match.Player1);
+				match.Rounds[match.Rounds.Count - 1].WinningPlayer = _repository.GetPlayerById(match.Player2);
 				//rounds.Add(round);
 				//match.Rounds.Add(round);
-				match.RoundWinner(match.Player1.playerId);
+				match.RoundWinner(match.Player1);
 			}
 
 			// wait to save the game till the user clicks to save the game after the game is over.

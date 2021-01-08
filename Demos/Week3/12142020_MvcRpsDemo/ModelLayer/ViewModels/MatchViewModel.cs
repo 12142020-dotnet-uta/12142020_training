@@ -11,11 +11,21 @@ namespace ModelLayer.ViewModels
 	{
 		public Guid matchId { get; set; } = Guid.NewGuid();
 
-		public PlayerViewModel Player1 { get; set; } // always the computer
+		//to add
+		public Guid Player1 { get; set; }
+		public Guid Player2 { get; set; }
+		public string Player1Fname { get; set; }
+		public string Player1Lname { get; set; }
 
-		public PlayerViewModel Player2 { get; set; } // always the user.
+		public string Player2Fname { get; set; }
+		public string Player2Lname { get; set; }
+
+		//public PlayerViewModel Player1 { get; set; } // always the computer
+		//public PlayerViewModel Player2 { get; set; } // always the user.
 
 		public List<Round> Rounds = new List<Round>();
+		public Choice Player1Choice { get; set; }
+		public Choice Player2Choice { get; set; }
 
 		[Range(0, 2)]
 		public int p1RoundWins { get; set; } // Who many rounds has the player won?
@@ -38,11 +48,11 @@ namespace ModelLayer.ViewModels
 			{
 				ties++;
 			}
-			else if (p == Player1.playerId)
+			else if (p == Player1)
 			{
 				p1RoundWins++;
 			}
-			else if (p == Player2.playerId)
+			else if (p == Player2)
 			{
 				p2RoundWins++;
 			}
@@ -53,7 +63,7 @@ namespace ModelLayer.ViewModels
 		/// If no player has 2 wins yet, returns null.
 		/// </summary>
 		/// <returns></returns>
-		public PlayerViewModel MatchWinner()
+		public Guid? MatchWinner()
 		{
 			if (p1RoundWins == 2)
 			{

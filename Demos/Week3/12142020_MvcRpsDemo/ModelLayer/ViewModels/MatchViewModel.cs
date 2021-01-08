@@ -1,18 +1,19 @@
-
+﻿using System;
 using System.Collections.Generic;
-using System;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ModelLayer
+namespace ModelLayer.ViewModels
 {
-	public class Match
+	public class MatchViewModel
 	{
-		[Key]
 		public Guid matchId { get; set; } = Guid.NewGuid();
 
-		public Player Player1 { get; set; } // always the computer
+		public PlayerViewModel Player1 { get; set; } // always the computer
 
-		public Player Player2 { get; set; } // always the user.
+		public PlayerViewModel Player2 { get; set; } // always the user.
 
 		public List<Round> Rounds = new List<Round>();
 
@@ -31,23 +32,28 @@ namespace ModelLayer
 		/// no arguments means a tie.
 		/// </summary>
 		/// <param name="p"></param>
-		public void RoundWinner(Player p = null)
+		public void RoundWinner(Guid? p)
 		{
 			if (p == null)
 			{
 				ties++;
 			}
-			else if (p.playerId == Player1.playerId)
+			else if (p == Player1.playerId)
 			{
 				p1RoundWins++;
 			}
-			else if (p.playerId == Player2.playerId)
+			else if (p == Player2.playerId)
 			{
 				p2RoundWins++;
 			}
 		}
 
-		public Player MatchWinner()
+		/// <summary>
+		/// compares the number of wins or Player1 and Player2 and returns that player. 
+		/// If no player has 2 wins yet, returns null.
+		/// </summary>
+		/// <returns></returns>
+		public PlayerViewModel MatchWinner()
 		{
 			if (p1RoundWins == 2)
 			{
@@ -59,7 +65,7 @@ namespace ModelLayer
 			}
 			else
 			{
-				return new Player();
+				return null;
 			}
 		}
 	}

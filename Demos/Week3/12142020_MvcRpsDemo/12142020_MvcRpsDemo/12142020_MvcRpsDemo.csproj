@@ -18,4 +18,14 @@
 		<ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\RpsImages\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\RpsImages\Paper.jpg" />
+	  <None Include="wwwroot\RpsImages\Rock.jpg" />
+	  <None Include="wwwroot\RpsImages\Scissors.jpeg" />
+	</ItemGroup>
+
 </Project>

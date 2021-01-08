@@ -6,6 +6,7 @@ using BusinessLogicLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using ModelLayer;
 using ModelLayer.ViewModels;
 
 namespace _12142020_MvcRpsDemo.Controllers
@@ -70,8 +71,15 @@ namespace _12142020_MvcRpsDemo.Controllers
 			{
 				//ModelState. ("Failure", "This player doesnt exist.");
 				//TempData["PlayerError"] = "This Player does not exist";
-				ModelState.AddModelError("Failure", "Wrong Username and password combination!");
-				return RedirectToAction("PlayersList");
+				ModelState.AddModelError("Failure", "That Player was not found.");
+				ModelState.AddModelError("Try Again", "Please select another player.");
+				ModelState.AddModelError("But really", "I repeat, Please select another player!");
+
+				//return RedirectToAction("PlayersList");
+				//call BusinessLayer method that returns a List<PLayerViewModel>
+				List<PlayerViewModel> playerViewModelList = _businessLogicClass.PlayersList();
+				//render the List View
+				return View("PlayersList", playerViewModelList);
 			}
 			// send the player to be deleted
 			else
@@ -88,5 +96,59 @@ namespace _12142020_MvcRpsDemo.Controllers
 				}
 			}
 		}
+
+
+		[HttpGet]
+		[ActionName("PlayGame")]
+		public IActionResult PlayGame(Guid playerGuid)
+		{
+			MatchViewModel matchViewModel = _businessLogicClass.PlayGame(playerGuid);
+
+			// if there is a winner, render the winner View
+			if (matchViewModel.p1RoundWins == 2)
+			{
+				ViewBag["winner"] = $"The winner is {matchViewModel.Player1.Fname} {matchViewModel.Player1.Lname}!";
+				return View("GameOver", matchViewModel);
+			}
+			else if (matchViewModel.p2RoundWins == 2)
+			{
+				ViewBag["winner"] = $"The winner is {matchViewModel.Player2.Fname} {matchViewModel.Player2.Lname}!";
+				return View("GameOver", matchViewModel);
+			}
+			else
+			{
+				return View(matchViewModel);
+			}
+		}
+
+		[ActionName("playnextround")]
+		public IActionResult playnextround(MatchViewModel matchViewModel)
+		{
+			// after each round, send the game to playinggame() for it to evaluate round winner. it will send back either the game with a new round ready or a completed game object
+			MatchViewModel matchViewModel1 = _businessLogicClass.PlayingGame(matchViewModel);
+
+			// check if either player has 2 wins . if so render the view to play the next round.
+
+			// if it returns a winner render the completedgameview
+
+			// if there is a winner, render the winner View
+			if (matchViewModel.p1RoundWins == 2)
+			{
+				ViewBag["winner"] = $"The winner is {matchViewModel.Player1.Fname} {matchViewModel.Player1.Lname}!";
+				return View("GameOver", matchViewModel);
+			}
+			else if (matchViewModel.p2RoundWins == 2)
+			{
+				ViewBag["winner"] = $"The winner is {matchViewModel.Player2.Fname} {matchViewModel.Player2.Lname}!";
+				return View("GameOver", matchViewModel);
+			}
+			else
+			{
+				return View(matchViewModel);
+			}
+
+		}
+
+
 	}// end of class
 }// end of namespace

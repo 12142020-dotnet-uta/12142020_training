@@ -120,5 +120,58 @@ namespace RepositoryLayer
 			}
 		}
 
+		public Player GetPlayer1_TheComputer()
+		{
+			//check if the computer (Max HeadRoom) exists
+			Player player1 = players.FirstOrDefault(x => x.Fname == "Max" && x.Lname == "HeadRoom");
+
+			// if the computer doesn't exist in the Db already, create Max HeadRoom
+			if (player1 != null)
+			{
+				return player1;
+			}
+			else
+			{
+				player1 = new Player()
+				{
+					Fname = "Max",
+					Lname = "HeadRoom"
+				};
+				return player1;
+			}
+		}
+
+		/// <summary>
+		/// takes a new match instance and saves it to the List<Match> (or context).
+		/// If the match already exists, returns false.
+		/// </summary>
+		/// <returns></returns>
+		public bool SaveMatch(Match match)
+		{
+			//check if the match is already there
+			if (!matches.Any(x => x.matchId == match.matchId))
+			{
+				matches.Add(match);
+				_dbContext.SaveChanges();
+				return true;
+			}
+			else return false;
+		}
+
+		/// <summary>
+		/// adds the completed match to the List<Match> if it ins't already in the List.
+		/// returns true if the match was successfully added, false if the matchId already exists
+		/// </summary>
+		/// <param name="match"></param>
+		public bool AddCompletedMatch(Match match)
+		{
+			if (!matches.Any(x => x.matchId == match.matchId))
+			{
+				matches.Add(match);
+				_dbContext.SaveChanges();
+				return true;
+			}
+			return false;
+		}
 	}// end of class
 }// end of namespace

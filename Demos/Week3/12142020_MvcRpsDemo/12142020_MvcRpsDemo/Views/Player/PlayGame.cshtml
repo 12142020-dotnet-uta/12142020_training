@@ -1,0 +1,47 @@
+﻿@model ModelLayer.ViewModels.MatchViewModel
+
+@{
+	ViewData["Title"] = "PlayGame";
+}
+
+<h1>PlayGame</h1>
+
+<h4>MatchViewModel</h4>
+<hr />
+<div class="row">
+	<div class="col-md-12">
+		<form asp-action="playnextround">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="matchId" class="control-label"></label>
+				<input asp-for="matchId" class="form-control" />
+				<span asp-validation-for="matchId" class="text-danger"></span>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-4">
+					<input asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice" type="radio" name="Player2Choice" id="Player2Choice" value="@Choice.Rock" />
+					<label asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice"><img class="img-responsive" src="~/RpsImages/Rock.jpg" alt="Rock" style="height:200px; width:100%" /></label>
+				</div>
+				<div class="col-md-4">
+					<input asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice" type="radio" name="Player2Choice" id="Player2Choice" value="@Choice.Paper" />
+					<label asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice"><img class="img-responsive" src="~/RpsImages/Paper.jpg" alt="Paper" style="height: 200px; width: 100%" /></label>
+				</div>
+				<div class="col-md-4">
+					<input asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice" type="radio" name="Player2Choice" id="Player2Choice" value="@Choice.Scissors" />
+					<label asp-for="@Model.Rounds[Model.Rounds.Count-1].Player2Choice"><img class="img-responsive" src="~/RpsImages/Scissors.jpeg" alt="Scissors" style="height: 200px; width: 100%" /></label>
+				</div>
+				<div class="form-group">
+					<input type="submit" value="Submit Round" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -50,5 +50,7 @@
 </div>
 <div>
 	<a asp-controller="Player" asp-action="EditPlayer" asp-route-playerGuid="@Model.playerId">Edit This Player</a> |
-	<a asp-controller="Player" asp-action="PlayersList">View A List Of All Players</a>
+	<a asp-controller="Player" asp-action="PlayersList">View A List Of All Players</a> |
+	<a asp-controller="Player" asp-action="PlayGame" asp-route-playerGuid="@Model.playerId">Play a Game?</a> |
+
 </div>

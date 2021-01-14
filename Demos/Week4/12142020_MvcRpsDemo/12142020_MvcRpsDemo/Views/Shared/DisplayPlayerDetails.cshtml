@@ -1,0 +1,56 @@
+﻿@model ModelLayer.ViewModels.PlayerViewModel
+
+@{
+	ViewData["Title"] = "Display Player Details";
+}
+
+<h1>DisplayPlayerDetails</h1>
+
+<div>
+	<h4>Player</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.playerId)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.playerId)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Fname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Fname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Lname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Lname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.numWins)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.numWins)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.numLosses)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.numLosses)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.JpgStringImage)
+		</dt>
+		<dd class="col-sm-10">
+			<img class="img-responsive" src="@Model.JpgStringImage" alt="No Image Found" style="height:100px" />
+		</dd>
+	</dl>
+</div>
+<div>
+	<a asp-controller="Player" asp-action="EditPlayer" asp-route-playerGuid="@Model.playerId">Edit This Player</a> |
+	<a asp-controller="Player" asp-action="PlayersList">View A List Of All Players</a> |
+	<a asp-controller="Player" asp-action="PlayGame" asp-route-playerGuid="@Model.playerId">Play a Game?</a> |
+
+</div>

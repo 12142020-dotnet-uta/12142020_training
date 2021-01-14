@@ -1,0 +1,58 @@
+# Working pipeline for M4
+
+trigger:
+- master
+
+pool:
+#setting the environment where to run pipeline
+  vmImage: 'windows-latest'
+  
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'LodgingAPI'
+    organization: 'mtnolasco1'
+    scannerMode: 'MSBuild'
+    projectKey: 'LodgingAPI'
+    projectName: 'LodgingAPI'
+    extraProperties: |
+        sonar.exclusions=**/lib/**
+
+- script: dotnet build ./Milestone3 --configuration $(buildConfiguration)
+  displayName: 'dotnet build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: dotnet test
+  inputs:
+    command: 'test'
+    projects: '**/*Tests/*.csproj'
+    arguments: --configuration $(buildConfiguration) --collect "Code Coverage"
+
+- task: PublishCodeCoverageResults@1
+  displayName: publish code coverage
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Agent.TempDirectory)/*/coburtura/coverage.xml'
+
+- task: SonarCloudAnalyze@1
+  displayName: run code analysis
+  
+- task: SonarCloudPublish@1
+  displayName: publish code analysis
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish and zip'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    zipAfterPublish: true
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Azure subscription 1(cb0d2e9c-c632-4eec-93d0-d1e5f9589605)'
+    appType: 'webApp'
+    WebAppName: 'LodgingAPI'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'

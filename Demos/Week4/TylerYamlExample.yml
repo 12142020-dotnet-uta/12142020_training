@@ -1,0 +1,56 @@
+name: $(date:yyyyMMdd)$(rev:.rr)
+
+pr:
+  - main
+
+trigger:
+  - main
+
+stages:
+  - stage: build
+    jobs:
+      - job: build
+        steps:
+          - script: dotnet build
+  - stage: test
+    jobs:
+      - job: tests
+        steps:
+          - script: dotnet test
+  - stage: analyze
+    jobs:
+      - job: analysis
+        pool:
+          vmImage: ubuntu-18.04
+        steps:
+          - task: SonarCloudPrepare@1
+            displayName: Prepare
+            inputs:
+              SonarCloud: sonarcloud
+              organization: tylermart
+              scannerMode: MSBuild
+              projectKey: tylercadena_tylermart
+              extraProperties: |
+                sonar.exclusions=**/obj/**,**/*.dll
+                sonar.branch.name=$(Build.SourceBranchName)
+                sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)/*.trx
+                sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/**/*.xml
+          - script: dotnet build
+          - script: echo 'Project Built'
+          - task: DotNetCoreCLI@2
+            displayName: Examine Tests
+            inputs:
+              command: test
+              arguments: '--configuration $(BuildConfiguration)
+                /p:CollectCoverage=true
+                /p:CoverletOutputFormat=opencover
+                /p:CoverletOutput=$(Build.SourcesDirectory)/TestResults/Coverage
+                --logger trx'
+              projects: '*Test/*Test.csproj'
+              nobuild: true
+          - task: SonarCloudAnalyze@1
+          - task: SonarCloudPublish@1
+            inputs:
+              pollingTimeoutSec: '300'
+          - script: dotnet publish TylerMart.sln
+

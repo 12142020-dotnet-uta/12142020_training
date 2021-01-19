@@ -14,9 +14,8 @@ namespace ModelLayer.ViewModels
 		//to add
 		public Guid Player1 { get; set; }
 		public Guid Player2 { get; set; }
-		public string Player1Fname { get; set; }
+		public string Player1Fname { get; set; } // only populate these 4 after the game has been won.
 		public string Player1Lname { get; set; }
-
 		public string Player2Fname { get; set; }
 		public string Player2Lname { get; set; }
 
@@ -25,7 +24,7 @@ namespace ModelLayer.ViewModels
 
 		public List<Round> Rounds = new List<Round>();
 		public Choice Player1Choice { get; set; }
-		public Choice Player2Choice { get; set; }
+		public Choice Player2Choice { get; set; } // the user
 
 		[Range(0, 2)]
 		public int p1RoundWins { get; set; } // Who many rounds has the player won?
@@ -42,7 +41,7 @@ namespace ModelLayer.ViewModels
 		/// no arguments means a tie.
 		/// </summary>
 		/// <param name="p"></param>
-		public void RoundWinner(Guid? p)
+		public void RoundWinner(Guid? p = null)
 		{
 			if (p == null)
 			{
@@ -59,7 +58,7 @@ namespace ModelLayer.ViewModels
 		}
 
 		/// <summary>
-		/// compares the number of wins or Player1 and Player2 and returns that player. 
+		/// compares the number of wins or Player1 and Player2 and returns the winning playerId. 
 		/// If no player has 2 wins yet, returns null.
 		/// </summary>
 		/// <returns></returns>

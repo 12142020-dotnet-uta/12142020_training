@@ -109,22 +109,19 @@ namespace _12142020_MvcRpsDemo.Controllers
 		[ActionName("playnextround")]
 		public IActionResult playnextround(MatchViewModel matchViewModel)
 		{
-			// after each round, send the game to playinggame() for it to evaluate round winner. it will send back either the game with a new round ready or a completed game object
-			MatchViewModel matchViewModel1 = _businessLogicClass.PlayingGame(matchViewModel);
-
-			// check if either player has 2 wins . if so render the view to play the next round.
-
-			// if it returns a winner render the completedgameview
+			// after each round, send the game to playinggame() for it to evaluate round winner. 
+			// it will send back either the game with a new round ready or a completed game object
+			matchViewModel = _businessLogicClass.PlayingGame(matchViewModel);
 
 			// if there is a winner, render the winner View
 			if (matchViewModel.p1RoundWins == 2)
 			{
-				ViewBag["winner"] = $"The winner is {matchViewModel.Player1Fname} {matchViewModel.Player1Lname}!";
+				ViewData["winner"] = $"The winner is {matchViewModel.Player1Fname} {matchViewModel.Player1Lname}!";
 				return View("GameOver", matchViewModel);
 			}
 			else if (matchViewModel.p2RoundWins == 2)
 			{
-				ViewBag["winner"] = $"The winner is {matchViewModel.Player2Fname} {matchViewModel.Player2Lname}!";
+				ViewData["winner"] = $"The winner is {matchViewModel.Player2Fname} {matchViewModel.Player2Lname}!";
 				return View("GameOver", matchViewModel);
 			}
 			else

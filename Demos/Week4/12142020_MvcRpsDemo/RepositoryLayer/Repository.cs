@@ -84,7 +84,6 @@ namespace RepositoryLayer
 			return player2;
 		}
 
-
 		/// <summary>
 		/// returns all match objects in List<Player>
 		/// </summary>
@@ -101,7 +100,7 @@ namespace RepositoryLayer
 		}
 
 		/// <summary>
-		/// Takes a PlayerGuid and deletes teh player matching that Guid. Returns TRUE on success, otherwise FALSE
+		/// Takes a PlayerGuid and deletes the player matching that Guid. Returns TRUE on success, otherwise FALSE
 		/// </summary>
 		/// <param name="playerGuid"></param>
 		/// <returns></returns>
@@ -142,11 +141,11 @@ namespace RepositoryLayer
 		}
 
 		/// <summary>
-		/// takes a new match instance and saves it to the List<Match> (or context).
+		/// takes a new match instance and saves it to the Dbcontext).
 		/// If the match already exists, returns false.
 		/// </summary>
 		/// <returns></returns>
-		public bool SaveMatch(Match match)
+		public bool SaveNewMatch(Match match)
 		{
 			//check if the match is already there
 			if (!matches.Any(x => x.matchId == match.matchId))
@@ -159,7 +158,7 @@ namespace RepositoryLayer
 		}
 
 		/// <summary>
-		/// adds the completed match to the List<Match> if it ins't already in the List.
+		/// adds the completed match to the DbContext if it ins't already in the List.
 		/// returns true if the match was successfully added, false if the matchId already exists
 		/// </summary>
 		/// <param name="match"></param>
@@ -167,11 +166,39 @@ namespace RepositoryLayer
 		{
 			if (!matches.Any(x => x.matchId == match.matchId))
 			{
-				matches.Add(match);
-				_dbContext.SaveChanges();
-				return true;
+				try
+				{
+					matches.Add(match);
+					_dbContext.SaveChanges();
+					return true;
+				}
+				catch (DbUpdateException ex)
+				{
+					throw new DbUpdateException("There was an error updating the Db in Repository.AddCompleteMatch()", ex);
+				}
 			}
 			return false;
+		}
+
+		public void AddRound(Round round)
+		{
+			_dbContext.rounds.Add(round);
+			_dbContext.SaveChanges();
+		}
+
+		public Match GetMatchById(Guid matchId1)
+		{
+			// the include() method will load the objects or collections of objects related to (contained by) the selected Match.
+			Match match = matches.Where(x => x.matchId == matchId1).Include(x => x.Player1).Include(x => x.Player2).Include("Rounds").FirstOrDefault();
+
+			//Player p1 = match.Player1;
+			//Player p2 = match.Player2;
+			return match;
+		}
+
+		public void SaveChanges()
+		{
+			_dbContext.SaveChanges();
 		}
 	}// end of class
 }// end of namespace

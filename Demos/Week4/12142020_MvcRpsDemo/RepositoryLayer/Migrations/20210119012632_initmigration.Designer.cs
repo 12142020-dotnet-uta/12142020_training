@@ -10,8 +10,8 @@ using RepositoryLayer;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(DbContextClass))]
-    [Migration("20210105182552_initialmigration")]
-    partial class initialmigration
+    [Migration("20210119012632_initmigration")]
+    partial class initmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -83,8 +83,11 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("ModelLayer.Round", b =>
                 {
-                    b.Property<Guid>("roundId")
+                    b.Property<Guid>("RoundId")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("MatchId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Player1Choice")
@@ -96,7 +99,9 @@ namespace RepositoryLayer.Migrations
                     b.Property<Guid?>("WinningPlayerplayerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("roundId");
+                    b.HasKey("RoundId");
+
+                    b.HasIndex("MatchId");
 
                     b.HasIndex("WinningPlayerplayerId");
 
@@ -120,11 +125,20 @@ namespace RepositoryLayer.Migrations
 
             modelBuilder.Entity("ModelLayer.Round", b =>
                 {
+                    b.HasOne("ModelLayer.Match", null)
+                        .WithMany("Rounds")
+                        .HasForeignKey("MatchId");
+
                     b.HasOne("ModelLayer.Player", "WinningPlayer")
                         .WithMany()
                         .HasForeignKey("WinningPlayerplayerId");
 
                     b.Navigation("WinningPlayer");
+                });
+
+            modelBuilder.Entity("ModelLayer.Match", b =>
+                {
+                    b.Navigation("Rounds");
                 });
 #pragma warning restore 612, 618
         }

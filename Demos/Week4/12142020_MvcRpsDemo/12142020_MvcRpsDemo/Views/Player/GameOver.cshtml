@@ -1,0 +1,97 @@
+﻿@model ModelLayer.ViewModels.MatchViewModel
+
+@{
+	ViewData["Title"] = "GameOver";
+}
+
+<h1>GameOver</h1>
+
+<br />
+<br />
+<br />
+<p>@ViewData["winner"]</p>
+<br />
+<br />
+
+<div>
+	<h4>MatchViewModel</h4>
+	<hr />
+	<dl class="row">
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.matchId)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.matchId)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player1)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player1)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player2)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player2)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player1Fname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player1Fname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player1Lname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player1Lname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player2Fname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player2Fname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player2Lname)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player2Lname)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player1Choice)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player1Choice)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.Player2Choice)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.Player2Choice)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.p1RoundWins)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.p1RoundWins)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.p2RoundWins)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.p2RoundWins)
+		</dd>
+		<dt class="col-sm-2">
+			@Html.DisplayNameFor(model => model.ties)
+		</dt>
+		<dd class="col-sm-10">
+			@Html.DisplayFor(model => model.ties)
+		</dd>
+	</dl>
+</div>
+<div>
+	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+	<a asp-action="Index">Back to List</a>
+</div>

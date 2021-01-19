@@ -14,7 +14,7 @@ namespace ModelLayer
 
 		public Player Player2 { get; set; } // always the user.
 
-		public List<Round> Rounds = new List<Round>();
+		public List<Round> Rounds { get; set; }
 
 		[Range(0, 2)]
 		public int p1RoundWins { get; set; } // Who many rounds has the player won?
@@ -31,22 +31,26 @@ namespace ModelLayer
 		/// no arguments means a tie.
 		/// </summary>
 		/// <param name="p"></param>
-		public void RoundWinner(Player p = null)
+		public void RoundWinner(Guid? p = null)
 		{
 			if (p == null)
 			{
 				ties++;
 			}
-			else if (p.playerId == Player1.playerId)
+			else if (p == Player1.playerId)
 			{
 				p1RoundWins++;
 			}
-			else if (p.playerId == Player2.playerId)
+			else if (p == Player2.playerId)
 			{
 				p2RoundWins++;
 			}
 		}
 
+		/// <summary>
+		/// Takes the Player instance who won the round and updates the correct RoundWins property.
+		/// </summary>
+		/// <returns></returns>
 		public Player MatchWinner()
 		{
 			if (p1RoundWins == 2)
@@ -59,7 +63,7 @@ namespace ModelLayer
 			}
 			else
 			{
-				return new Player();
+				return null;
 			}
 		}
 	}

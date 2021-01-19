@@ -101,31 +101,55 @@ namespace BusinessLogicLayer
 			}
 		}
 
+		/// <summary>
+		/// takes a playerId and creates a Match object.
+		/// It then saves the match object with both players to the Db for retrieval later.
+		/// </summary>
+		/// <param name="playerId"></param>
+		/// <returns></returns>
 		public MatchViewModel PlayGame(Guid playerId)
 		{
-			// create a match
-			MatchViewModel matchViewModel = new MatchViewModel();
+			// create a  Match and populate it with the players
+			Match match = new Match()
+			{
+				Player1 = _repository.GetPlayer1_TheComputer(),
+				Player2 = _repository.GetPlayerById(playerId)
+			};
+			// save the empty Match to the Db
+			bool uniqueMatchId = _repository.SaveNewMatch(match);
+			if (uniqueMatchId == false)
+			{
+				throw new Exception("This Match Guid already exists.");
+			}
+			// create an empty matchview model
+			MatchViewModel matchViewModel = new MatchViewModel()
+			{
+				matchId = match.matchId, // set the matchViewModel.matchId the same as the match in the Db
+				Player1 = _repository.GetPlayer1_TheComputer().playerId,
+				Player2 = _repository.GetPlayerById(playerId).playerId
+			};
 			//get the player and computer to assign to the Match
-			Player player2 = _repository.GetPlayerById(playerId);
-			PlayerViewModel Player2ViewModel = _mapperClass.ConvertPlayerToPlayerViewModel(player2);
-			matchViewModel.Player2 = Player2ViewModel.playerId;
+			//Player player2 = _repository.GetPlayerById(playerId);
+			//PlayerViewModel Player2ViewModel = _mapperClass.ConvertPlayerToPlayerViewModel(player2);
+			//matchViewModel.Player2 = Player2ViewModel.playerId;
 
 			// get the player1(computer) and player1ViewModel (computer)
-			Player player1 = _repository.GetPlayer1_TheComputer();
-			PlayerViewModel Player1ViewModel = _mapperClass.ConvertPlayerToPlayerViewModel(player1);
-			matchViewModel.Player1 = Player1ViewModel.playerId;
+			//Player player1 = _repository.GetPlayer1_TheComputer();
+			//PlayerViewModel Player1ViewModel = _mapperClass.ConvertPlayerToPlayerViewModel(player1);
+			//matchViewModel.Player1 = Player1ViewModel.playerId;
 
 			// get the first round to allow the player to choose a choice to be put in to their slot.
-			matchViewModel.Rounds.Add(GetNextRound());
+			//matchViewModel.Rounds.Add(GetNextRound());
 
 			// we'll also get the computers choice before sending it to the user to choose their Choice.
-			matchViewModel.Rounds[matchViewModel.Rounds.Count - 1].Player1Choice = GetComputerChoice();
+			//matchViewModel.Rounds[matchViewModel.Rounds.Count - 1].Player1Choice = GetComputerChoice();
 
 			return matchViewModel;
 		}
 
 		/// <summary>
-		/// This method is for an ongoing game. It takes a game object, evaluates of the game has been won.
+		/// This method is for an ongoing game. It takes a gameViewModel object containing the MatchID, and both playerIDs, and the users Choice.
+		/// Then creates a....
 		/// If so, the game is updated to reflect the winner. 
 		/// It not, the game is updated to reflect the latest round winner, and a new round is prepared with a computer Choice and returned.
 		/// </summary>
@@ -134,18 +158,27 @@ namespace BusinessLogicLayer
 		public MatchViewModel PlayingGame(MatchViewModel matchViewModel)
 		{
 			//first decide on a round winner by calling EvaluateRound(match) which will evaluate the round winner AND update the match
-			MatchViewModel match1 = EvaluateRound(matchViewModel);
+			matchViewModel = EvaluateRound(matchViewModel);
 
 			//if there is a match winner, return the commpleted match.
-			if (matchViewModel.p1RoundWins == 2 || matchViewModel.p2RoundWins == 2)
+			if (matchViewModel.MatchWinner() != null)
 			{
+				// this is where you would fully populate the matchViewModel to display the complete game to the user.
+				Player p1 = _repository.GetPlayerById(matchViewModel.Player1);
+				Player p2 = _repository.GetPlayerById(matchViewModel.Player2);
+				matchViewModel.Player1Fname = p1.Fname;
+				matchViewModel.Player1Lname = p1.Lname;
+				matchViewModel.Player2Fname = p2.Fname;
+				matchViewModel.Player2Lname = p2.Lname;
+
 				return matchViewModel;
 			}
 			else // if there is no winner yet, get another round and return.
 			{
-				matchViewModel.Rounds.Add(GetNextRound());
+				//matchViewModel.Rounds.Add(GetNextRound());
 				// we'll also get the computers choice before sending it to the user to choose their Choice.
-				matchViewModel.Rounds[matchViewModel.Rounds.Count - 1].Player1Choice = GetComputerChoice();
+				//matchViewModel.Rounds[matchViewModel.Rounds.Count - 1].Player1Choice = GetComputerChoice();
+
 				return matchViewModel;
 			}
 		}
@@ -170,42 +203,55 @@ namespace BusinessLogicLayer
 			return round;
 		}
 
-
-		private MatchViewModel EvaluateRound(MatchViewModel match)
+		private MatchViewModel EvaluateRound(MatchViewModel matchViewModel)
 		{
-			//Round round = new Round();
-			//round.Player1Choice = computerChoice;
-			//round.Player2Choice = userChoice;
-			Choice player1Choice = match.Rounds[match.Rounds.Count - 1].Player1Choice;
-			Choice player2Choice = match.Rounds[match.Rounds.Count - 1].Player2Choice;
+			// create a Round and set the Choices for both players
+			Round round = GetNextRound();
+			round.MatchId = matchViewModel.matchId;
+			round.Player1Choice = GetComputerChoice();
+			round.Player2Choice = matchViewModel.Player2Choice;
 
-			if (player1Choice == player2Choice)   // is the playes tied
+			// get the Match fro the Db to update along with the matchViewModel
+			Match match = _repository.GetMatchById(matchViewModel.matchId);
+
+			//manually populating the match players bc the context isn't returning them with the match object.
+			//match.Player1 = _repository.GetPlayer1_TheComputer();
+			//match.Player2 = _repository.GetPlayerById(matchViewModel.Player2);
+
+			if (round.Player1Choice == round.Player2Choice)   // did the players tie?
 			{
-				match.Rounds[match.Rounds.Count - 1].WinningPlayer = new Player("TieGame", "TieGame");
-				//rounds.Add(round);
-				//match.Rounds.Add(round);
-				match.RoundWinner(null); // send in the player who won. empty args means a tie round
+				// update the Match stats
+				matchViewModel.RoundWinner(); // send in the player who won. empty args means a tie round
+				match.RoundWinner();
 			}
-			else if (((int)player2Choice == 1 && (int)player1Choice == 0) || // if the user won
-				((int)player2Choice == 2 && (int)player1Choice == 1) ||
-				((int)player2Choice == 0 && (int)player1Choice == 2))
+			else if (((int)round.Player2Choice == 1 && (int)round.Player1Choice == 0) || // if the user (Player2) won
+				((int)round.Player2Choice == 2 && (int)round.Player1Choice == 1) ||
+				((int)round.Player2Choice == 0 && (int)round.Player1Choice == 2))
 			{
-				match.Rounds[match.Rounds.Count - 1].WinningPlayer = _repository.GetPlayerById(match.Player2);
-				//rounds.Add(round);
-				//match.Rounds.Add(round);
-				match.RoundWinner(match.Player2);
+				round.WinningPlayer = _repository.GetPlayerById(matchViewModel.Player2); // set the winning player of the round
+				matchViewModel.RoundWinner(matchViewModel.Player2);
+				match.RoundWinner(matchViewModel.Player2);
+
 			}
-			else
+			else // Computer won
 			{
-				match.Rounds[match.Rounds.Count - 1].WinningPlayer = _repository.GetPlayerById(match.Player2);
-				//rounds.Add(round);
-				//match.Rounds.Add(round);
-				match.RoundWinner(match.Player1);
+				round.WinningPlayer = _repository.GetPlayerById(matchViewModel.Player1);
+				matchViewModel.RoundWinner(matchViewModel.Player1);
+				match.RoundWinner(matchViewModel.Player1);
 			}
 
-			// wait to save the game till the user clicks to save the game after the game is over.
-			// DbContext.SaveChanges();
-			return match;
+
+			matchViewModel.Rounds.Add(round);   // add the round to the matchViewModel
+			_repository.AddRound(round);        // save the round to the Db
+			match.Rounds.Add(round);            // add the round to the match in the Db
+			_repository.SaveChanges();
+
+			//transfer over the status of the game bc the matchViewModel doesn't save that stat between rounds.
+			matchViewModel.p1RoundWins = match.p1RoundWins;
+			matchViewModel.p2RoundWins = match.p2RoundWins;
+			matchViewModel.ties = match.ties;
+
+			return matchViewModel;
 		}
 
 		/// <summary>

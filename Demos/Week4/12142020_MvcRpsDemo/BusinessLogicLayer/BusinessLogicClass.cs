@@ -231,7 +231,6 @@ namespace BusinessLogicLayer
 				round.WinningPlayer = _repository.GetPlayerById(matchViewModel.Player2); // set the winning player of the round
 				matchViewModel.RoundWinner(matchViewModel.Player2);
 				match.RoundWinner(matchViewModel.Player2);
-
 			}
 			else // Computer won
 			{

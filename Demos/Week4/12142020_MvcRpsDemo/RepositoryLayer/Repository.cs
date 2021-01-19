@@ -189,7 +189,7 @@ namespace RepositoryLayer
 		public Match GetMatchById(Guid matchId1)
 		{
 			// the include() method will load the objects or collections of objects related to (contained by) the selected Match.
-			Match match = matches.Where(x => x.matchId == matchId1).Include(x => x.Player1).Include(x => x.Player2).Include("Rounds").FirstOrDefault();
+			Match match = matches.Where(x => x.matchId == matchId1).Include("Player1").Include(x => x.Player2).Include("Rounds").FirstOrDefault();
 
 			//Player p1 = match.Player1;
 			//Player p2 = match.Player2;

@@ -1,0 +1,60 @@
+﻿@model ModelLayer.ViewModels.PlayerViewModel
+
+@{
+	ViewData["Title"] = "Edit Player";
+}
+
+<h1>EditPlayer</h1>
+
+<h4>Player View Model</h4>
+<hr />
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="EditedPlayer" enctype="multipart/form-data" method="post">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				<label asp-for="playerId" class="control-label"></label>
+				<input asp-for="playerId" class="form-control" />
+				<span asp-validation-for="playerId" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Fname" class="control-label"></label>
+				<input asp-for="Fname" class="form-control" />
+				<span asp-validation-for="Fname" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Lname" class="control-label"></label>
+				<input asp-for="Lname" class="form-control" />
+				<span asp-validation-for="Lname" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="numWins" class="control-label"></label>
+				<input asp-for="numWins" class="form-control" />
+				<span asp-validation-for="numWins" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="numLosses" class="control-label"></label>
+				<input asp-for="numLosses" class="form-control" />
+				<span asp-validation-for="numLosses" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="IformFileImage" class="control-label"></label>
+				<input asp-for="IformFileImage" type="file" id="file" class="form-control" />
+				<span asp-validation-for="IformFileImage" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+		<br />
+		<img class="img-responsive" src="@Model.JpgStringImage" alt="No Image Found" style="height:100px" />
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">TODO-Back to List</a>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

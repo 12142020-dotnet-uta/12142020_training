@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<RootNamespace>_12142020_MvcRpsDemo</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.1">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
+	  <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+		<ProjectReference Include="..\ModelLayer\ModelLayer.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="wwwroot\RpsImages\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="wwwroot\RpsImages\Paper.jpg" />
+	  <None Include="wwwroot\RpsImages\Rock.jpg" />
+	  <None Include="wwwroot\RpsImages\Scissors.jpeg" />
+	</ItemGroup>
+
+</Project>

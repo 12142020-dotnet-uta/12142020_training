@@ -57,4 +57,3 @@ steps:
     appType: 'webApp'
     WebAppName: 'LodgingAPI'
     packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-

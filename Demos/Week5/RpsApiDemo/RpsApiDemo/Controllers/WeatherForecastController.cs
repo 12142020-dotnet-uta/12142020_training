@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace RpsApiDemo.Controllers
 {
 	[ApiController]
-	[Route("[controller]")]
+	[Route("controller")]
 	public class WeatherForecastController : ControllerBase
 	{
 		private static readonly string[] Summaries = new[]
@@ -23,7 +23,10 @@ namespace RpsApiDemo.Controllers
 			_logger = logger;
 		}
 
-		[HttpGet]
+		[HttpGet("Jerry")]
+		[Route("")]
+		[Route("jerry")]
+		//[Route("jerry/jones/ruined/the/cowboys")]
 		public IEnumerable<WeatherForecast> Get()
 		{
 			var rng = new Random();

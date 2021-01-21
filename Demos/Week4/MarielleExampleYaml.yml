@@ -49,6 +49,7 @@ steps:
     command: 'publish'
     publishWebProjects: true
     zipAfterPublish: true
+
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'

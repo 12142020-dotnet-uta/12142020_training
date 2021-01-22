@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!--
+            contains meta data
+            Like what character set to use
+            The title of your tab/window/bookmark
+        -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <title>gotta catch them all</title>
+    </head>
+    <body>
+        <div class="container">
+            <h3>Let's get some pokemon</h3>
+            <form action="">
+                <div class="form-group"><input type="text" class="form-control" placeholder="Enter Pokemon name or id" id="pokemonInput"></div>
+                <input type="button" value="get pokemon" class="btn btn-secondary" onclick="GetPokemon()">
+            </form>
+            <div class="pokemonResult container">
+                <img src=""/>
+            </div>
+        </div>
+        <div class="container">
+            <h3>Let's get some digimons</h3>
+            <form action="">
+                <div class="form-group"><input type="text" class="form-control" placeholder="Enter digimon name" id="digimonInput"></div>
+                <input type="button" value="get digimon" class="btn btn-secondary" onclick="GetDigimon()">
+            </form>
+            <div class="digimonResult container">
+                <img src=""/>
+            </div>
+        </div>
+        <div class="container">
+            <h3>Functions in JS (a demo)</h3>
+            <div class="list-group">
+                <button class="btn btn-info list-group-item list-group-item-action" onclick="BasicFunction()">Calling a basic function</button>
+                <button class="btn btn-info list-group-item list-group-item-action" onclick="ParentFunction(CallBack)">Calling a callback function</button>
+                <button class="btn btn-info list-group-item list-group-item-action" onclick="ParentFunction((person, param2) => alert('Hi' + person))">Passing an arrow function</button>
+                <button class="btn btn-info list-group-item list-group-item-action" onclick="(()=>console.log('This function gets immediately invoked'))();">Calling an IIFE</button>
+            </div>
+        </div>
+        <div class="container">
+            <h3>Closures in JS</h3>
+            <h4>Encapsulation with shared using IIFEs</h4>
+            <p>Open the log. Whichever button you click increases the count on the stored variable</p>
+            <button class="btn btn-warning" onclick="console.log(Outer())">Click this</button>
+            <button class="btn btn-warning" onclick="console.log(Outer())">Now click this</button>
+
+            <h4>Initializing new closures</h4>
+            <p>Open the log. Whichever button you click increases the count on a new closure's stored variable.</p>
+            <button class="btn btn-warning" onclick="console.log(add())">Click this</button>
+            <button class="btn btn-warning" onclick="console.log(addagain())">Now click this</button>
+        </div>
+        <script>
+        function GetPokemon(){
+            let xhr = new XMLHttpRequest();
+            let pokemon = {};
+            let pokemonInput = document.querySelector('#pokemonInput').value;
+
+            xhr.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status==200)
+                {
+                    pokemon = JSON.parse(xhr.responseText);
+                    document.querySelector('.pokemonResult img').setAttribute('src', pokemon.sprites.front_default);
+                    document.querySelectorAll('.pokemonResult caption').forEach((element) => element.remove());
+                    let caption = document.createElement('caption');
+                    let pokeName = document.createTextNode(pokemon.forms[0].name);
+                    caption.appendChild(pokeName);
+                    document.querySelector('.pokemonResult').appendChild(caption);
+                    document.querySelector('#pokemonInput').value = '';
+                }
+            }
+
+            xhr.open("GET", `https://pokeapi.co/api/v2/pokemon/${pokemonInput}`, true);
+            xhr.send();
+        };
+        </script>
+        <script src="submar.js"></script>
+        <script src="digmonfetch.js"></script>
+    </body>
+</html>

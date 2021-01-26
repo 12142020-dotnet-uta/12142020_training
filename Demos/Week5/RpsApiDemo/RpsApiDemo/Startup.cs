@@ -24,20 +24,28 @@ namespace RpsApiDemo
 		}
 
 		public IConfiguration Configuration { get; }
+		//readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddCors(options =>
+			{
+				options.AddPolicy("policy1",
+					builder =>
+					{
+						builder.WithOrigins("http://localhost:4200")
+						.AllowAnyHeader()
+						.AllowAnyMethod();
+					});
+			});
 
 			services.AddControllers();
 			services.AddScoped<DbContextClass>();
 			services.AddScoped<Repository>();
 			services.AddScoped<BusinessLogicClass>();
 			services.AddScoped<MapperClass>();
-			//services.AddSwaggerGen(c =>
-			//{
-			//	c.SwaggerDoc("v1", new OpenApiInfo { Title = "RpsApiDemo", Version = "v1" });
-			//});
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,13 +54,11 @@ namespace RpsApiDemo
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				//app.UseSwagger();
-				//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "RpsApiDemo v1"));
 			}
 
 			app.UseHttpsRedirection();
-
 			app.UseRouting();
+			app.UseCors("policy1");
 
 			app.UseAuthorization();
 

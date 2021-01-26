@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//using System.Web.Http.Cors;
 using BusinessLogicLayer;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ModelLayer;
@@ -22,6 +24,7 @@ namespace RpsApiDemo.Controllers
 			_logger = logger;
 		}
 
+		//[EnableCors("AllowOrigin")]
 		[HttpGet("Login")]
 		public IActionResult Login()
 		{
@@ -42,6 +45,7 @@ namespace RpsApiDemo.Controllers
 			}
 		}
 
+		//[EnableCors("policy1")]
 		[HttpPost("LoginPlayer")]
 		public ActionResult Login(LoginPlayerViewModel loginPlayerViewModel)
 		{

@@ -1,0 +1,31 @@
+<p>login-player works!</p>
+
+<form>
+  <div class="form-group">
+    <label for="Fname">First Name</label>
+    <input type="text" class="form-control" id="Fname" required [(ngModel)]="loginPlayerViewModel.Fname" name="name"
+      placeholder="First Name">
+    <!-- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+      Name is required
+    </div> -->
+  </div>
+  <br>
+  <div class="form-group">
+    <label for="Lname">Last Name</label>
+    <input type="text" class="form-control" id="Lname" required [(ngModel)]="loginPlayerViewModel.Lname" name="name"
+      placeholder="Last Name">
+    <!-- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+          Name is required
+        </div> -->
+  </div>
+  <button type="button" class="btn btn-default" (click)="OnSubmit()">Submit</button>
+</form>
+Below is the info you are inputting<br>
+{{loginPlayerViewModel.Fname}}
+{{loginPlayerViewModel.Lname}}
+<br>
+This is the first name of the player => {{playerViewModel | json}}
+
+<!-- to display the player details, nest another "playerDetails" component here  and pass the returned player to it
+using one-way binding '[child object]="parent object"' -->
+<app-playerdetails [playerViewModel]="playerViewModel"></app-playerdetails>

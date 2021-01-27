@@ -1,0 +1,12 @@
+<p>playerdetails Will display below when a player is fetched.!</p>
+
+<div *ngIf="playerViewModel.fname">
+  {{playerViewModel.fname}}
+  {{playerViewModel.lname}}
+  {{playerViewModel.numWins}}
+  {{playerViewModel.numLosses}}
+  <!-- <br>Jpegbelow
+  {{playerViewModel.jpgStringImage}} -->
+</div>
+<!-- add a link here to see the list of players. -->
+<button *ngIf="playerViewModel.fname" routerLink="/playerlist">See a list of players</button>

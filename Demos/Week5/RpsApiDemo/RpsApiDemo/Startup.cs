@@ -58,6 +58,8 @@ namespace RpsApiDemo
 
 			app.UseHttpsRedirection();
 			app.UseRouting();
+
+			// This configuration must be between the .UseRouting() and .UseAuthorization()
 			app.UseCors("policy1");
 
 			app.UseAuthorization();

@@ -1,6 +1,6 @@
 import { RpsApiService } from './../rps-api.service';
 import { PlayerViewModel } from './../player-view-model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-edit-player',
@@ -9,6 +9,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class EditPlayerComponent implements OnInit {
   @Input() selectedPlayer: PlayerViewModel = new PlayerViewModel();
+  @Output() editedPlayer = new EventEmitter<void>();
+
+
   constructor(private rpsService: RpsApiService) { }
 
   ngOnInit(): void {
@@ -18,9 +21,13 @@ export class EditPlayerComponent implements OnInit {
 
     // TODO complete an event emmitter to the parent component (playerlist)
     // that will update the player nd update the list.
-    this.rpsService.EditPlayer(this.selectedPlayer);
-    //redirect to the PLayerList component
-    // router.navigate(['/playerlist']);
+    this.rpsService.EditPlayer(this.selectedPlayer)
+      .subscribe(x => {
+        this.editedPlayer.emit();
+      });
+    this.selectedPlayer.fname = null;
+    this.selectedPlayer.lname = null;
+    // emit the event
 
   }
 }

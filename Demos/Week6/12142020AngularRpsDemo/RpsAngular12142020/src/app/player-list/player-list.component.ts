@@ -18,13 +18,17 @@ export class PlayerListComponent implements OnInit {
   }
 
   PlayerDetails(guid: string): void {
+    this.playerToEdit.fname = null
     this.rpsService.PlayerDetails(guid).subscribe(x => this.selectedPlayer = x);
-
   }
 
   PlayerEdit(playerId: string): void {
+    this.selectedPlayer.fname = null;
     this.rpsService.PlayerDetails(playerId).subscribe(x => this.playerToEdit = x);
-
   }
 
-}
+  ReloadList(itsa: boolean): void {
+    this.rpsService.PlayerList().subscribe(x => this.playerList = x);
+  }
+
+}// end of class

@@ -1,26 +1,27 @@
 <p>edit-player works!</p>
-<form>
+<form *ngIf="selectedPlayer.fname">
   <div class="form-group">
-    <label for="Fname">First Name</label>
-    <input type="text" class="form-control" id="Fname" required [(ngModel)]="selectedPlayer.fname" name="name"
-      placeholder="">
+    <label for="fname">First Name</label>
+    <input type="text" class="form-control" id="fname" required [(ngModel)]="selectedPlayer.fname" name="fname"
+      placeholder="First Name">
   </div>
   <br>
   <div class="form-group">
-    <label for="Lname">Last Name</label>
-    <input type="text" class="form-control" id="Lname" required [(ngModel)]="selectedPlayer.lname" name="name"
+    <label for="lname">Last Name</label>
+    <input type="text" class="form-control" id="lname" required [(ngModel)]="selectedPlayer.lname" name="lname"
       placeholder="Last Name">
   </div>
   <div>
-    <label for="Fname">First Name</label>
-    <input type="text" class="form-control" id="Fname" name="name" placeholder="selectedPlayer.numWins" readonly>
+    <label for="Fname">Number Of Wins</label>
+    <input type="text" class="form-control" id="Fname" name="name" placeholder="{{selectedPlayer.numWins}}" readonly>
   </div>
   <div>
-    <label for="Fname">First Name</label>
-    <input type="text" class="form-control" id="Fname" name="name" placeholder="selectedPlayer.numLosses" readonly>
+    <label for="Fname">Number Of Losses</label>
+    <input type="text" class="form-control" id="Fname" name="name" placeholder="{{selectedPlayer.numLosses}}" readonly>
   </div>
   <button type="button" class="btn btn-default" (click)="OnSubmit()">Submit</button>
 </form>
 Below is the info you are inputting<br>
 {{selectedPlayer.fname}}
 {{selectedPlayer.lname}}
+<button routerLink="/playerList">Refresh the List</button>

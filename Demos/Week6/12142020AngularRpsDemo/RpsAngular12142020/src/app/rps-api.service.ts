@@ -29,8 +29,6 @@ export class RpsApiService {
     return this.http.get<PlayerViewModel[]>('https://localhost:44345/Player/PlayersList');
   }
 
-
-
   PlayerDetails(playerId: string): Observable<PlayerViewModel> {
     return this.http.get<PlayerViewModel>('https://localhost:44345/Player/PlayerDetails/' + playerId);
   }
@@ -38,12 +36,10 @@ export class RpsApiService {
   //called by EditPlayer() in EditPlayer component.
   // needs to return a player object to be added to the list OD redirect to the playerlist route to redisplay the list page.
   // OnSubmit of the edited player. the list needs to be updated.
-  EditPlayer(player: PlayerViewModel): void {
+  EditPlayer(player: PlayerViewModel): Observable<PlayerViewModel> {
     //create sometihng ot send back
-    this.http.post<PlayerViewModel>('https://localhost:44345/Player/EditedPlayer/', player, this.httpOptions);
-
+    return this.http.post<PlayerViewModel>('https://localhost:44345/Player/EditedPlayer', player, this.httpOptions);
+    //this.PlayerList();
   }
-
-
 }//end of class
 

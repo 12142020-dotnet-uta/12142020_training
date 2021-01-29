@@ -9,25 +9,21 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class EditPlayerComponent implements OnInit {
   @Input() selectedPlayer: PlayerViewModel = new PlayerViewModel();
-  @Output() editedPlayer = new EventEmitter<void>();
-
+  @Output() editedPlayer = new EventEmitter<boolean>();
 
   constructor(private rpsService: RpsApiService) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   OnSubmit(): void {
-
-    // TODO complete an event emmitter to the parent component (playerlist)
-    // that will update the player nd update the list.
     this.rpsService.EditPlayer(this.selectedPlayer)
       .subscribe(x => {
-        this.editedPlayer.emit();
+        this.EmitEvent(true);
       });
     this.selectedPlayer.fname = null;
     this.selectedPlayer.lname = null;
-    // emit the event
+  }
 
+  EmitEvent(tru: boolean): void {
+    this.editedPlayer.emit(tru);
   }
 }

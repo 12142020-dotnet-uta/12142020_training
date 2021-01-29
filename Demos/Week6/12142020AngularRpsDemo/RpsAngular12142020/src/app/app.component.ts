@@ -9,8 +9,8 @@ export class AppComponent {
   title: string = 'RpsAngular12142020';
   login: boolean = false;
 
-  IWannaLogIn(): void {
-    this.login = true;
-    console.log('IWannaLogIn() Works!');
+  ToggleLogInComponent(): void {
+    this.login = !this.login;
+    console.log('ToggleLogInComponent() Works!');
   }
 }

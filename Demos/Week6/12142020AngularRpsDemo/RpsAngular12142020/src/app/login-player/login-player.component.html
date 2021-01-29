@@ -3,7 +3,7 @@
 <form>
   <div class="form-group">
     <label for="Fname">First Name</label>
-    <input type="text" class="form-control" id="Fname" required [(ngModel)]="loginPlayerViewModel.Fname" name="name"
+    <input type="text" class="form-control" id="Fname" required [(ngModel)]="loginPlayerViewModel.fname" name="name"
       placeholder="First Name">
     <!-- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
       Name is required
@@ -12,7 +12,7 @@
   <br>
   <div class="form-group">
     <label for="Lname">Last Name</label>
-    <input type="text" class="form-control" id="Lname" required [(ngModel)]="loginPlayerViewModel.Lname" name="name"
+    <input type="text" class="form-control" id="Lname" required [(ngModel)]="loginPlayerViewModel.lname" name="name"
       placeholder="Last Name">
     <!-- <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
           Name is required
@@ -21,8 +21,8 @@
   <button type="button" class="btn btn-default" (click)="OnSubmit()">Submit</button>
 </form>
 Below is the info you are inputting<br>
-{{loginPlayerViewModel.Fname}}
-{{loginPlayerViewModel.Lname}}
+{{loginPlayerViewModel.fname}}
+{{loginPlayerViewModel.lname}}
 <br>
 This is the first name of the player => {{playerViewModel | json}}
 

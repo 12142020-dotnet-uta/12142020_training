@@ -1,6 +1,6 @@
 export class LoginPlayerViewModel {
-  Fname: string;
-  Lname: string;
+  fname: string;
+  lname: string;
 }
 
 

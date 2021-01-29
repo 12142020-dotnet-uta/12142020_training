@@ -1,5 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+//import { RouterTestingModule } from '@angular/router/testing';
+
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -26,6 +28,18 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('RpsAngular12142020 app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('RpsAngular12142020 will be starting p3 in 1 week!');
   });
+
+  // add more tests here.
+  it('should toggle the login boolean', () => {
+    const appComponent = new AppComponent();
+    expect(appComponent.login).toBe(false, 'initial value is false');
+    appComponent.ToggleLogInComponent();
+    expect(appComponent.login).toBe(true, 'the value after calling the function is true');
+    appComponent.ToggleLogInComponent();
+    expect(appComponent.login).toBe(false, 'the value after calling the function again is true');
+  });
+
+
 });

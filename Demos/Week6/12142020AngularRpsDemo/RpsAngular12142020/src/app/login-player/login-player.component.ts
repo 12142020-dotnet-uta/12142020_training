@@ -1,7 +1,7 @@
 import { RpsApiService } from './../rps-api.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { LoginPlayerViewModel } from '../login-player-view-model';
-import { NgModule } from '@angular/core';
+//import { NgModule } from '@angular/core';
 import { PlayerViewModel } from '../player-view-model';
 
 @Component({
@@ -10,9 +10,10 @@ import { PlayerViewModel } from '../player-view-model';
   styleUrls: ['./login-player.component.css']
 })
 export class LoginPlayerComponent implements OnInit {
+
   loginPlayerViewModel: LoginPlayerViewModel = new LoginPlayerViewModel();// = new LoginPlayerViewModel();
   playerViewModel: PlayerViewModel = new PlayerViewModel();
-  @Input() login1: boolean = false;
+  @Input() login1: boolean = false;// this value is passed from the parent
 
   //used mainly for DI
   constructor(private rpsApiService: RpsApiService) { }
@@ -25,8 +26,5 @@ export class LoginPlayerComponent implements OnInit {
   OnSubmit(): void {
     this.rpsApiService.LoginPlayer(this.loginPlayerViewModel).subscribe(x => this.playerViewModel = x);
     console.log("Here after the call to the service.");
-
   }
-
-
 }

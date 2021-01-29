@@ -7,7 +7,7 @@ import { PlayerViewModel } from '../player-view-model';
   styleUrls: ['./playerdetails.component.css']
 })
 export class PlayerdetailsComponent implements OnInit {
-  @Input() playerViewModel: PlayerViewModel = null;
+  @Input() playerViewModel: PlayerViewModel = new PlayerViewModel('null', 'null');
   constructor() { }
 
   ngOnInit(): void {

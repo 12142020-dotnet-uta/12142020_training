@@ -27,7 +27,7 @@ export class PlayerListComponent implements OnInit {
     this.rpsService.PlayerDetails(playerId).subscribe(x => this.playerToEdit = x);
   }
 
-  ReloadList(itsa: boolean): void {
+  ReloadList(): void {
     this.rpsService.PlayerList().subscribe(x => this.playerList = x);
   }
 

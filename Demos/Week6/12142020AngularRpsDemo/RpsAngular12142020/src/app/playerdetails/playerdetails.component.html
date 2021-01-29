@@ -1,6 +1,6 @@
 <p>playerdetails Will display below when a player is fetched.!</p>
 
-<div *ngIf="playerViewModel.fname">
+<div *ngIf="playerViewModel.fname !='null'">
   {{playerViewModel.fname}}
   {{playerViewModel.lname}}
   {{playerViewModel.numWins}}

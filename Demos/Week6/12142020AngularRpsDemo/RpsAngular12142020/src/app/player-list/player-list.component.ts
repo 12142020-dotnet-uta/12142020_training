@@ -18,7 +18,7 @@ export class PlayerListComponent implements OnInit {
   }
 
   PlayerDetails(guid: string): void {
-    this.playerToEdit.fname = null
+    this.playerToEdit.fname = null;
     this.rpsService.PlayerDetails(guid).subscribe(x => this.selectedPlayer = x);
   }
 

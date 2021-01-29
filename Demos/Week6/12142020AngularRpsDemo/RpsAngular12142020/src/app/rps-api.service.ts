@@ -10,11 +10,9 @@ import { Observable, of } from 'rxjs';
 })
 export class RpsApiService {
 
-
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      //'Access-Control-Allow-Headers': '*'
     })
   };
 

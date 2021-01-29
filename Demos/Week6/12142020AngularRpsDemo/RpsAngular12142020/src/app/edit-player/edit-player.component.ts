@@ -14,9 +14,13 @@ export class EditPlayerComponent implements OnInit {
   constructor(private rpsService: RpsApiService) { }
   ngOnInit(): void { }
 
-  OnSubmit(): void {
-    this.rpsService.EditPlayer(this.selectedPlayer)
-      .subscribe(x => {
+  // take the edited submitted player, send it to back-end
+  // to enter the changes into the Db.Then call the Emit
+  // event method to emit the event and pass the event to
+  // the playerList copmponent to refetch the playersList and display the changes.
+  OnSubmit(): void {                                // 1. call OnSubmit() 1.5. set then verify that the selectedPlayer has expected data
+    this.rpsService.EditPlayer(this.selectedPlayer)// 2. mock the service and return a mocked player
+      .subscribe(x => {                           //3. verifyu that EmitEvent() was called
         this.EmitEvent(true);
       });
     this.selectedPlayer.fname = null;

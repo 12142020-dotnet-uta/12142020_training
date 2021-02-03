@@ -27,7 +27,7 @@ namespace ModelLayer
 
 
 		/// <summary>
-		/// This methodvtakes an optional Player object and increments the number of round wins for that player.
+		/// This method takes an optional Player object and increments the number of round wins for that player.
 		/// no arguments means a tie.
 		/// </summary>
 		/// <param name="p"></param>
@@ -62,12 +62,5 @@ namespace ModelLayer
 				return new Player();
 			}
 		}
-
-
-
-
-
 	}
-
-
 }

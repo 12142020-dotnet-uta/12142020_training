@@ -1,7 +1,7 @@
-﻿@model ModelLayer.Player
+﻿@model ModelLayer.ViewModels.PlayerViewModel
 
 @{
-	ViewData["Title"] = "DisplayPlayerDetails";
+	ViewData["Title"] = "Display Player Details";
 }
 
 <h1>DisplayPlayerDetails</h1>
@@ -41,14 +41,16 @@
 			@Html.DisplayFor(model => model.numLosses)
 		</dd>
 		<dt class="col-sm-2">
-			@Html.DisplayNameFor(model => model.ByteArrayImage)
+			@Html.DisplayNameFor(model => model.JpgStringImage)
 		</dt>
 		<dd class="col-sm-10">
-			@Html.DisplayFor(model => model.ByteArrayImage)
+			<img class="img-responsive" src="@Model.JpgStringImage" alt="No Image Found" style="height:100px" />
 		</dd>
 	</dl>
 </div>
 <div>
-	@Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-	<a asp-action="Index">Back to List</a>
+	<a asp-controller="Player" asp-action="EditPlayer" asp-route-playerGuid="@Model.playerId">Edit This Player</a> |
+	<a asp-controller="Player" asp-action="PlayersList">View A List Of All Players</a> |
+	<a asp-controller="Player" asp-action="PlayGame" asp-route-playerGuid="@Model.playerId">Play a Game?</a> |
+
 </div>

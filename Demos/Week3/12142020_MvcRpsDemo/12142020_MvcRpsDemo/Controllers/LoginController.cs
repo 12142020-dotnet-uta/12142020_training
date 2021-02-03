@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BusinessLogicLayer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ModelLayer;
 using ModelLayer.ViewModels;
 
@@ -13,11 +14,12 @@ namespace _12142020_MvcRpsDemo.Controllers
 	public class LoginController : Controller
 	{
 		private BusinessLogicClass _businessLogicClass;
-		public LoginController(BusinessLogicClass businessLogicClass)
+		private readonly ILogger<LoginController> _logger;
+		public LoginController(BusinessLogicClass businessLogicClass, ILogger<LoginController> logger)
 		{
 			_businessLogicClass = businessLogicClass;
+			_logger = logger;
 		}
-
 
 		// GET: LoginController
 		//[ActionName("Login")]
@@ -32,6 +34,9 @@ namespace _12142020_MvcRpsDemo.Controllers
 			// instead of doing logic here, call a method in the business logic 
 			// layer to create teh player, persist to the Db, and return a player to display.
 			// use DI (Dependency Injection) to get an instance to the business class and access to itds functionality.
+			PlayerViewModel playerViewModel = _businessLogicClass.LoginPlayer(loginPlayerViewModel);
+
+			//_logger.LogInformation($"The LogininPlayer() returned NUll");
 
 			///do things to log in....
 			return View("DisplayPlayerDetails", playerViewModel);

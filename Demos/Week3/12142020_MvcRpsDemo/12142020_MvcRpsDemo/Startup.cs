@@ -29,6 +29,8 @@ namespace _12142020_MvcRpsDemo
 			services.AddScoped<DbContextClass>();
 			services.AddScoped<Repository>();
 			services.AddScoped<BusinessLogicClass>();
+			services.AddScoped<MapperClass>();
+
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,60 @@
+﻿@model ModelLayer.ViewModels.MatchViewModel
+
+@{
+	ViewData["Title"] = "PlayGame";
+	var dict = new Dictionary<Choice, string>
+	{
+		[Choice.Rock] = "~/RpsImages/Rock.jpg",
+		[Choice.Paper] = "~/RpsImages/Paper.jpg",
+		[Choice.Scissors] = "~/RpsImages/Scissors.jpeg"
+	};
+}
+
+<h1>PlayGame</h1>
+<h4>MatchViewModel</h4>
+<hr />
+<div class="row">
+	<div class="col-md-12">
+		<form asp-action="playnextround">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="form-group">
+				@*<label asp-for="matchId" class="control-label"></label>*@
+				<input asp-for="matchId" class="form-control" type="hidden" />
+				@*<span asp-validation-for="matchId" class="text-danger"></span>*@
+			</div>
+			<div class="form-group">
+				@*<label asp-for="Player1" class="control-label"></label>*@
+				<input asp-for="Player1" class="form-control" type="hidden" />
+				@*<span asp-validation-for="Player1" class="text-danger"></span>*@
+			</div>
+			<div class="form-group">
+				@*<label asp-for="Player2" class="control-label"></label>*@
+				<input asp-for="Player2" class="form-control" type="hidden" />
+				@*<span asp-validation-for="Player2" class="text-danger"></span>*@
+			</div>
+			@*Here, use a foreach to assign the values to the 3 different choices.*@
+			<div class="form-group row">
+				@foreach (var item in dict)
+				{
+					<div class="col-md-4">
+						<label asp-for="Player2Choice">
+							<input asp-for="Player2Choice" type="radio" value="@item.Key" />
+							<img class="img-responsive" src="@Url.Content(item.Value)" alt="Rock/Paper/Scissors" style="height:200px; width:100%" />
+						</label>
+					</div>
+				}
+			</div>
+			<div class="form-group">
+				<input type="submit" value="Save" class="btn btn-primary" />
+			</div>
+		</form>
+	</div>
+</div>
+
+<div>
+	<a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

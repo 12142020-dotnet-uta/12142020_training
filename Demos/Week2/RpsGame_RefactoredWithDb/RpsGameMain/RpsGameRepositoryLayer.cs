@@ -31,7 +31,8 @@ namespace RpsGame_NoDb
 
 
         /// <summary>
-        /// Creates a player after verifying that the player does not already exist. returns the player obj
+        /// Creates a player after verifying that the player does not already exist. 
+        /// IF the player already exists, return that player.
         /// </summary>
         /// <returns></returns>
         public Player CreatePlayer(string fName = "null", string lName = "null")

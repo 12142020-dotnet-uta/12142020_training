@@ -57,12 +57,5 @@ namespace RpsGame_NoDb
                 return new Player();
             }
         }
-
-
-
-
-
     }
-
-
 }

@@ -6,6 +6,5 @@ namespace EventHandling
     public class FileEventArgs : EventArgs
     {
         public File File { get; set; }
-
     }
 }

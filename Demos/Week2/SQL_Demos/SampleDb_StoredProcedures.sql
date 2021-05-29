@@ -1,5 +1,4 @@
 
-
 --Simple Stored Procedure
 CREATE PROCEDURE GetAllCustomerNames
 AS 
@@ -9,7 +8,6 @@ WHERE addressID = 1;
 
 EXEC GetAllCustomerNames;
 DROP PROCEDURE GetAllCustomerNames;
-
 
 --Stored Procedure with variables
 CREATE PROCEDURE GetCustomerShe   

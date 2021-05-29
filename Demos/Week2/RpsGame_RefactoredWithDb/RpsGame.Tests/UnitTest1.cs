@@ -12,6 +12,7 @@ namespace RpsGame.Tests
         {
             // arrange
             //creating the in-memory Db
+            //don't forget to configure the REAL Db in the context class.....
             var options = new DbContextOptionsBuilder<RpsDbContext>()
             .UseInMemoryDatabase(databaseName: "TestDb")
             .Options;
@@ -21,8 +22,8 @@ namespace RpsGame.Tests
             // add to the In-Memory Db
             using (var context = new RpsDbContext(options))
             {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
+                context.Database.EnsureDeleted();// delete any Db fro a previous test
+                context.Database.EnsureCreated();// create anew the Db... you will need ot seed it again.
 
                 RpsGameRepositoryLayer repo = new RpsGameRepositoryLayer(context);
                 int x = 4;
@@ -70,6 +71,7 @@ namespace RpsGame.Tests
         {
             // arrange
             //creating the in-memory Db
+            // this will create a NEW InMemory Db each time you do it.
             var options = new DbContextOptionsBuilder<RpsDbContext>()
             .UseInMemoryDatabase(databaseName: "TestDb")
             .Options;
@@ -77,14 +79,15 @@ namespace RpsGame.Tests
             // act
             // add to the In-Memory Db
             Player p1 = new Player();
-            using (var context = new RpsDbContext(options))
+            using (var context = new RpsDbContext(options))// create the DbContext using hte options form line 75
             {
                 context.Database.EnsureDeleted();
                 context.Database.EnsureCreated();
 
+                //this seeds the Db with a player
                 RpsGameRepositoryLayer repo = new RpsGameRepositoryLayer(context);
                 p1 = repo.CreatePlayer("Sparky", "Jones");
-                //context.SaveChanges();
+                //context.SaveChanges();// this probably needs to be uncommented
             }
 
             //assert
@@ -94,8 +97,12 @@ namespace RpsGame.Tests
                 //context.Database.EnsureCreated();
                 RpsGameRepositoryLayer repo = new RpsGameRepositoryLayer(context1);
 
-                Player result = repo.CreatePlayer("Sparky", "Jones");
+                //this attempts to create a new player of hte same name.
+                // the expectation is that CreatePlare() will return an exists player if the names are identical.
+                Player result = repo.CreatePlayer("Sparky", "Jones");// create a player with the same name OR
 
+
+                //verify that the same player is returned bc the names were identical.
                 Assert.Equal(p1.playerId, result.playerId);
                 //Assert.True(p1.playerId.Equals(result.playerId));
                 //Assert.True(p1.playerId.CompareTo(result.playerId) == result.playerId.CompareTo(p1.playerId));

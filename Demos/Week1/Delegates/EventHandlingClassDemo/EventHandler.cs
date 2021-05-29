@@ -11,7 +11,7 @@ namespace EventHandlingClassDemo
         // // 2. create an event based on the event handler.
         // public event UserInputEventHandler UIEvent;
 
-        //this event is the combination of the 2 steps above.
+        //this event is the newer syntax. It's a combination of the 2 steps above.
         public event EventHandler<SentenceEventArgs> UIEvent;
 
         private void OnUserInput(/*File file*/)

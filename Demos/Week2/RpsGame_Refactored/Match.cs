@@ -55,12 +55,5 @@ namespace RpsGame_NoDb
                 return null;
             }
         }
-
-
-
-
-
     }
-
-
 }
